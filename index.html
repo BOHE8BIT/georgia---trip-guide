@@ -1,27 +1,589 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101827"><title>出发！格鲁吉亚</title>
-<style>
-:root{--bg:#f4efe8;--card:#fffaf2;--text:#172131;--muted:#687386;--line:#dcd3c8;--accent:#c86f43;--soft:#efd8c7;--shadow:0 12px 34px #1b293b1d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;line-height:1.55}.wrap{max-width:980px;margin:auto;padding:18px 12px 60px}.card,.day{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}header{padding:24px;margin-bottom:22px}.eyebrow,.section-head span{font-size:12px;color:var(--muted)}h1{font-size:clamp(32px,8vw,54px);line-height:1.1;margin:10px 0}.subtitle{color:var(--muted)}.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:22px 2px 9px}.section-head h2{font-size:20px;margin:0}.stats{display:flex;gap:8px;flex-wrap:wrap}.pill,.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:12px;color:var(--muted)}.day{overflow:hidden;margin:10px 0}.day-head{display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer}.badge{width:42px;height:42px;border-radius:13px;background:var(--soft);display:grid;place-items:center;font-weight:800}.day-title{flex:1}.day-title strong{display:block}.day-title small{color:var(--muted)}.toggle{border:0;background:transparent;color:var(--accent);font-size:18px}.day-body{display:none;padding:0 14px 16px}.day.open .day-body{display:block}.timeline{list-style:none;margin:0;padding:0}.timeline li{display:grid;grid-template-columns:92px 1fr;gap:10px;padding:12px 0;border-top:1px solid var(--line)}.time{color:var(--muted);font-size:13px}.event b{display:block}.duration{font-size:11px;color:var(--accent);margin-left:6px}.place{display:inline-flex;align-items:center;gap:5px;margin:3px 5px 0 0;padding:5px 8px;border:1px solid var(--line);border-radius:9px;color:var(--accent);background:transparent;cursor:pointer;font:inherit;font-size:12px}.place:hover{background:var(--soft)}.map-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}.map-actions button{border:0;border-radius:10px;padding:9px 12px;background:var(--accent);color:white;cursor:pointer;font-weight:650}.map-actions button.alt{background:transparent;color:var(--text);border:1px solid var(--line)}.note{font-size:12px;color:var(--muted);margin-top:12px}.summary{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#fff3e7;border-radius:12px;margin:12px 0}.summary strong{color:var(--accent)}@media(max-width:550px){.section-head{align-items:flex-start;flex-direction:column}.timeline li{grid-template-columns:75px 1fr}}
-</style></head>
-<body><main class="wrap">
-<header class="card"><div class="eyebrow">此刻关注 · Couple Trip</div><h1>出发！格鲁吉亚</h1><p class="subtitle">2026.10.01–10.07 · 第比利斯 / 卡兹别克 · Asia/Tbilisi</p><div class="stats"><span class="pill">7 天 6 夜</span><span class="pill">点击地点选择地图</span><span class="pill">弹性时间制</span></div></header>
-<div class="section-head"><h2>逐日行程 / Daily Plan</h2><span>上午 · 下午 · 傍晚；仅交通保留时间</span></div><section id="itinerary"></section>
-<p class="note">地图按钮会根据设备打开 Apple 地图或 Google 地图；地点名称本身也可点击。行程时段为舒适的模糊安排，交通衔接和航班等必要时间会保留具体时刻。</p>
-</main>
-<script>
-const days=[
-{d:'D1',date:'10/01',title:'抵达第比利斯 / Arrive Tbilisi',sub:'机场 → 市区补给 → 接小吴',items:[['16:00','抵达第比利斯国际机场','Tbilisi International Airport','机场接送，保留具体时间以便衔接'],['傍晚','入住与补给','7 Borbalo Street, Tbilisi','放行李、附近采购，慢慢适应城市节奏'],['21:00','集合接人','Tbilisi','必要集合时间：21:00']]},
-{d:'D2',date:'10/02',title:'老城与 Mtatsminda / Old Town & Funicular',sub:'咖啡 · 钟楼 · 和平桥 · 缆车',items:[['上午','咖啡与老城散步','Kvarts Coffee, Tbilisi','咖啡、定制杯和街巷拍照'],['下午','钟楼与和平桥','The Clock Tower, Tbilisi','看整点表演，沿河散步至和平桥'],['傍晚','Mtatsminda 缆车','Mtatsminda Funicular, Tbilisi','确认票价、末班车和天气后上山']]},
-{d:'D3',date:'10/03',title:'第比利斯 → 卡兹别克 / Tbilisi → Kazbegi',sub:'包车日 · Ananuri · Gergeti',items:[['08:00','包车前往卡兹别克','7 Borbalo Street 7, Tbilisi','必要交通时间：08:00 出发；确认价格和停靠点'],['下午','途中停留与拍照','Ananuri Fortress, Georgia','视路况安排，不追赶景点'],['傍晚','入住 ELLO cottage','ELLO cottage Kazbegi','办理入住，确认第二天教堂安排']]},
-{d:'D4',date:'10/04',title:'卡兹别克轻徒步 / Kazbegi Easy Day',sub:'河谷 · 观景 · 休息',items:[['上午','河谷轻徒步','Kazbegi Valley, Georgia','只走标记清晰、天气允许的路线'],['下午','Gergeti Trinity Church','Gergeti Trinity Church, Georgia','4x4 往返，视天气决定；不为打卡勉强出发'],['傍晚','回小屋休息','ELLO cottage Kazbegi','留出弹性时间看山景和休息']]},
-{d:'D5',date:'10/05',title:'返回第比利斯 / Return to Tbilisi',sub:'早出发 · 回 Borbalo 住宿',items:[['08:30','退房并返回第比利斯','ELLO cottage Kazbegi','必要交通时间：08:30 出发'],['下午','回到公寓与自由活动','7 Borbalo Street, Tbilisi','补觉、洗衣或附近慢逛'],['傍晚','自由晚餐','Tbilisi','不固定餐厅，按体力决定']]},
-{d:'D6',date:'10/06',title:'第比利斯逛吃 / Tbilisi City Day',sub:'Dry Bridge · Metekhi · 伴手礼',items:[['上午','Dry Bridge 跳蚤市场','Dry Bridge Market, Tbilisi','慢慢逛，比较价格后再购买'],['下午','Metekhi 与河景','Metekhi St. Virgin Mary Church, Tbilisi','城市与河流拍照'],['傍晚','老城晚餐与伴手礼','Tbilisi Old Town','按兴趣收尾，不安排硬性时间']]},
-{d:'D7',date:'10/07',title:'机场返程 / Airport Return',sub:'老板送机 · 22:00 起飞',items:[['傍晚','前往机场','7 Borbalo Street 7, Tbilisi','送机时间按航班和路况确认'],['22:00','航班起飞','Tbilisi International Airport','必要航班时间：22:00；以机票为准']]}
-];
-const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-function mapUrl(place,kind){const q=encodeURIComponent(place);return kind==='apple'?`https://maps.apple.com/?q=${q}`:`https://www.google.com/maps/search/?api=1&query=${q}`}
-function openMap(place,kind){window.open(mapUrl(place,kind),'_blank','noopener,noreferrer')}
-function render(){document.querySelector('#itinerary').innerHTML=days.map((day,i)=>{const places=[...new Set(day.items.map(x=>x[2]))];return `<article class="day ${i===0?'open':''}"><div class="day-head" onclick="this.parentElement.classList.toggle('open')"><span class="badge">${day.d}</span><div class="day-title"><strong>${day.date} · ${esc(day.title)}</strong><small>${esc(day.sub)}</small></div><button class="toggle" aria-label="展开或收起">⌄</button></div><div class="day-body"><ul class="timeline">${day.items.map(x=>`<li><div class="time">${esc(x[0])}</div><div class="event"><b>${esc(x[1])}<span class="duration">· 弹性安排</span></b><button class="place" onclick="openMap('${x[2].replace(/'/g,"\\'")}','google')">⌖ ${esc(x[2])}</button><p>${esc(x[3])}</p></div></li>`).join('')}</ul><div class="summary"><span>本日游玩时间总计</span><strong>约 ${Math.max(2,day.items.length*2)}–${day.items.length*3} 小时</strong></div><div class="map-actions"><span class="note">打开本日地点：</span>${places.map(p=>`<button onclick="openMap('${p.replace(/'/g,"\\'")}','apple')"> Apple 地图 · ${esc(p.split(',')[0])}</button><button class="alt" onclick="openMap('${p.replace(/'/g,"\\'")}','google')">Google 地图 · ${esc(p.split(',')[0])}</button>`).join('')}</div></div></article>`}).join('')};render();
-</script></body></html>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#101827" />
+  <title>格鲁吉亚旅行计划 · 10 Tarieli St</title>
+  <style>
+    :root {
+      --bg: #f4efe8;
+      --card: rgba(255,250,242,0.92);
+      --card-strong: #fffaf2;
+      --text: #172131;
+      --muted: #687386;
+      --line: #dcd3c8;
+      --accent: #c86f43;
+      --soft: #efd8c7;
+      --rose: #f6d7c5;
+      --navy: #1b2d45;
+      --shadow: 0 18px 40px rgba(27, 41, 59, 0.12);
+      --success: #2c8d64;
+      --warning: #d98a42;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 16px 60px;
+    }
+    .hero {
+      background: linear-gradient(135deg, rgba(200,111,67,0.12), rgba(255,255,255,0.22));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 26px 24px 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 16px 0 10px;
+      font-size: clamp(2.3rem, 6vw, 4.3rem);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.03rem;
+      margin: 0 0 18px;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 9px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.25);
+      padding: 7px 12px;
+      font-size: 12px;
+      color: var(--text);
+    }
+    .chip strong { color: var(--accent); }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 10px;
+      padding: 0 4px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      letter-spacing: -0.03em;
+    }
+    .section-head span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .inner {
+      padding: 18px 18px 16px;
+    }
+    .mini-tag {
+      display: inline-block;
+      background: var(--soft);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+    }
+    .card p, .card li {
+      color: var(--text);
+      margin: 0;
+      font-size: 0.96rem;
+    }
+    .day-list {
+      display: grid;
+      gap: 14px;
+    }
+    .day {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.26);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .day-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      cursor: pointer;
+      background: rgba(255,255,255,0.18);
+      border-bottom: 1px solid rgba(220,211,200,0.6);
+    }
+    .day-main {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+    .day-badge {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: var(--soft);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .day-title {
+      min-width: 0;
+    }
+    .day-title strong {
+      display: block;
+      font-size: clamp(1rem, 2.3vw, 1.25rem);
+      line-height: 1.35;
+      white-space: normal;
+    }
+    .day-title small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .toggle {
+      border: none;
+      background: transparent;
+      color: var(--accent);
+      font-size: 1.4rem;
+      cursor: pointer;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+    }
+    .day-body {
+      display: none;
+      padding: 14px 18px 18px;
+    }
+    .day.open .day-body {
+      display: block;
+    }
+    .timeline {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .timeline li {
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 10px;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+    }
+    .time {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding-top: 3px;
+    }
+    .event {
+      display: block;
+    }
+    .event b {
+      display: inline-block;
+      font-size: 1.02rem;
+      margin-bottom: 2px;
+    }
+    .event .tag-inline {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 700;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .event p {
+      margin: 8px 0 2px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .place-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .place-btn {
+      border: 1px solid var(--line);
+      background: rgba(200,111,67,0.06);
+      color: var(--accent);
+      border-radius: 12px;
+      padding: 7px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .place-btn.alt {
+      background: transparent;
+      color: var(--text);
+    }
+    .summary-box {
+      margin-top: 14px;
+      background: #fff4e8;
+      border: 1px solid rgba(200,111,67,0.2);
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .summary-box strong { color: var(--accent); }
+    .note-list {
+      display: grid;
+      gap: 10px;
+      padding-left: 18px;
+      margin: 0;
+    }
+    .restaurant-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .restaurant-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.18);
+      padding: 9px 12px;
+      font-size: 0.92rem;
+    }
+    .restaurant-list strong { color: var(--accent); }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .pill {
+      border-radius: 999px;
+      background: #fff3e7;
+      border: 1px solid rgba(200,111,67,0.2);
+      color: var(--accent);
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .footer-note {
+      margin-top: 18px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    @media (max-width: 760px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .section-head { flex-direction: column; align-items: flex-start; }
+      .timeline li { grid-template-columns: 78px 1fr; }
+      .day-head { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <div class="topline">
+        <span>Georgia Trip Plan</span>
+        <span id="now">2026.10.01 — 2026.10.07</span>
+      </div>
+      <h1>格鲁吉亚旅行计划</h1>
+      <p class="subtitle">适配住宿：10 Tarieli St, Tbilisi · 以步行 + 短途 Bolt / 包车为核心动线</p>
+      <div class="chips">
+        <span class="chip"><strong>7</strong> 天 6 夜</span>
+        <span class="chip"><strong>2.3</strong> 风格版本</span>
+        <span class="chip"><strong>动态</strong> 统一地图跳转</span>
+        <span class="chip"><strong>弹性</strong> 上午 / 下午 / 傍晚</span>
+      </div>
+    </header>
+
+    <div class="section-head">
+      <h2>住宿区位回顾</h2>
+      <span>10 Tarieli St · 市中心北侧</span>
+    </div>
+
+    <section class="info-grid">
+      <article class="card">
+        <div class="inner">
+          <span class="mini-tag">区位优势</span>
+          <h3>步行友好</h3>
+          <p>市中心北侧，Bolt 到小火车下站 5–8 分钟，步行到 Kvarts 咖啡 / Rustaveli、老城木偶楼 10–15 分钟，动线非常顺。</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="inner">
+          <span class="mini-tag">交通便利</span>
+          <h3>接驳顺畅</h3>
+          <p>到 Didube 小巴站约 10 分钟，能够很方便衔接卡兹别克、小火车和城市间交通，同时适合日间穿梭。</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="inner">
+          <span class="mini-tag">出行建议</span>
+          <h3>轻松动线</h3>
+          <p>围绕老城、Rustaveli 和小火车站构成闭环路线，几乎没有反复穿越，适合两人低疲劳旅行。</p>
+        </div>
+      </article>
+    </section>
+
+    <div class="section-head">
+      <h2>逐日行程 / Daily Plan</h2>
+      <span>上午 · 下午 · 傍晚；必要交通保留具体时间</span>
+    </div>
+
+    <section class="day-list" id="itinerary"></section>
+
+    <div class="section-head">
+      <h2>餐厅汇总</h2>
+      <span>Day-by-day 推荐</span>
+    </div>
+
+    <section class="card">
+      <div class="inner">
+        <ul class="restaurant-list">
+          <li><span><strong>Day 2 午餐</strong> · Pkhali-Khinkali</span><span>khinkali 饺子 + 奶酪饼</span></li>
+          <li><span><strong>Day 2 晚餐</strong> · Salobie Bia</span><span>传统格鲁吉亚菜</span></li>
+          <li><span><strong>Day 2 咖啡</strong> · Kvarts Coffee</span><span>手绘杯与 Rustaveli 散步</span></li>
+          <li><span><strong>Day 3 / Day 4</strong> · Stepantsminda 小镇家常菜馆</span><span>当地炖肉与山地美食</span></li>
+          <li><span><strong>Day 5 / Day 6</strong> · 复用第比利斯本地店</span><span>自由广场 / 老城 / Tarieli 周边</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="section-head">
+      <h2>当日注意事项</h2>
+      <span>实用提醒</span>
+    </div>
+
+    <section class="card">
+      <div class="inner">
+        <ul class="note-list">
+          <li>10 月夜间 7–10℃，随身带薄外套；山地夜间可低至 0–4℃，需加层。</li>
+          <li>机场少量换汇，市区兑换点换 GEL 更划算；保留保险、英文 Booking 预订单、机票行程单。</li>
+          <li>第比利斯中等干燥，润唇膏和厚面霜随身；教程中重复强调防风、防晒与离线地图。</li>
+          <li>山区信号弱，提前下载离线地图并确认小木屋暖气；小火车和包车不要错过末班时间。</li>
+          <li>Day 6 的 Dry Bridge 跳蚤市场建议比价；手工艺品、红酒与 churchkhela 可提前规划买量。</li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="footer-note">本页面为静态旅行展示页，适合展示行程、地点导航、安排行程与购票提醒。</p>
+  </main>
+
+  <script>
+    const itinerary = [
+      {
+        d: 'D1',
+        date: '10/01',
+        title: '落地第比利斯 → 入住 Tarieli 住宿',
+        subtitle: '机场接送 · 入住休整 · 晚间接小吴',
+        total: '约 2–4 小时',
+        items: [
+          { time: '上午', title: '落地第比利斯机场', place: 'Tbilisi International Airport', note: '入境备查：保险、英文 Booking 预订单、机票行程单。出关后可办手机卡，少量换汇。', map: 'Tbilisi International Airport' },
+          { time: '下午', title: '酒店老板接送到市区', place: '10 Tarieli St, Tbilisi', note: '联系酒店接送，不坐黑车；完成换汇、手机卡办理和超市补给。', map: '10 Tarieli St, Tbilisi' },
+          { time: '傍晚', title: '抵达入住并休整', place: '10 Tarieli St, Tbilisi', note: '放行李，简单休整。晚间要保留出门时间接小吴，周边便利店买水零食。', map: '10 Tarieli St, Tbilisi' },
+          { time: '夜间', title: '接小吴落地机场', place: 'Tbilisi International Airport', note: '确认酒店老板接送安排，必要集合时间以实际航班情况为准。', map: 'Tbilisi International Airport' }
+        ]
+      },
+      {
+        d: 'D2',
+        date: '10/02',
+        title: 'Kvarts 咖啡 → 老城木偶楼 → 和平桥 → Mtatsminda 夜景',
+        subtitle: '步行 + 短途 Bolt · 老城深度游',
+        total: '约 7–9 小时',
+        items: [
+          { time: '上午', title: '步行到 Kvarts Coffee', place: 'Kvarts Coffee, Tbilisi', note: '咖啡 + 手绘杯，等位逛 Rustaveli 大道。', map: 'Kvarts Coffee, Tbilisi' },
+          { time: '下午', title: '木偶钟楼与老城散步', place: 'The Clock Tower, Tbilisi', note: '看整点表演、老城街巷、和平桥散步；午餐可安排 Pkhali-Khinkali。', map: 'The Clock Tower, Tbilisi' },
+          { time: '傍晚', title: 'Mtatsminda 小火车夜景', place: 'Mtatsminda Funicular Lower Station', note: '先在窗口买交通卡，单程 12 GEL；注意大风天气和末班车。', map: 'Mtatsminda Funicular Lower Station' }
+        ]
+      },
+      {
+        d: 'D3',
+        date: '10/03',
+        title: '第比利斯 → 卡兹别克 → 小木屋入住 → Gergeti 圣三一教堂',
+        subtitle: '包车 + 4x4 上山 · 山地适应',
+        total: '约 8–10 小时',
+        items: [
+          { time: '上午', title: '出发前往卡兹别克', place: 'Didube Bus Station / Stepantsminda', note: '可选小巴方案或包车方案；两种方式都要提前确认上门接送和途中停靠点。', map: 'Didube Bus Station, Tbilisi' },
+          { time: '下午', title: '入住小木屋并简短午餐', place: 'ELLO cottage, Kazbegi', note: '到达 Stepantsminda 后办理入住、放行李、补给食物。', map: 'ELLO cottage Kazbegi' },
+          { time: '傍晚', title: 'Gergeti 圣三一教堂', place: 'Gergeti Trinity Church', note: '下午 4x4 上山，最优 14 点前上山拍照；山上停留 30–45 分钟，注意海拔与天气。', map: 'Gergeti Trinity Church' }
+        ]
+      },
+      {
+        d: 'D4',
+        date: '10/04',
+        title: '卡兹别克轻徒步 / 山谷散步 / 小镇深度休息',
+        subtitle: '缓慢恢复海拔 · 不赶硬性打卡',
+        total: '约 4–6 小时',
+        items: [
+          { time: '上午', title: '河谷轻散步', place: 'Kazbegi Valley, Georgia', note: '适度走路、观景、休息，不做硬性徒步。', map: 'Kazbegi Valley, Georgia' },
+          { time: '下午', title: '小镇闲逛与咖啡休息', place: 'Stepantsminda', note: '天气好可继续周边散步，起雾则安排小木屋休息和补给。', map: 'Stepantsminda, Georgia' },
+          { time: '傍晚', title: '回小屋休息', place: 'ELLO cottage, Kazbegi', note: '按体力决定是否喝咖啡、补水和敷面膜。', map: 'ELLO cottage Kazbegi' }
+        ]
+      },
+      {
+        d: 'D5',
+        date: '10/05',
+        title: '卡兹别克 → 返回第比利斯',
+        subtitle: '早班返程 · 回城市休整',
+        total: '约 5–7 小时',
+        items: [
+          { time: '上午', title: '退房并返程', place: 'Stepantsminda → Tbilisi', note: '小巴 / 城际包车返回第比利斯，优先早班车，避开下午晚段山路。', map: 'Stepantsminda, Georgia' },
+          { time: '下午', title: '回到住宿休整', place: '10 Tarieli St, Tbilisi', note: '放行李、休息、补给和洗衣，恢复城市节奏。', map: '10 Tarieli St, Tbilisi' },
+          { time: '傍晚', title: 'Rustaveli / 自由广场散步', place: 'Rustaveli Avenue, Tbilisi', note: '自由散步，不固定餐厅；按体力决定是否回老城。', map: 'Rustaveli Avenue, Tbilisi' }
+        ]
+      },
+      {
+        d: 'D6',
+        date: '10/06',
+        title: '第比利斯逛吃 + 伴手礼采购',
+        subtitle: 'Dry Bridge · Metekhi · 河边散步',
+        total: '约 6–8 小时',
+        items: [
+          { time: '上午', title: 'Dry Bridge 跳蚤市场', place: 'Dry Bridge Market, Tbilisi', note: '慢慢逛、比价后再买手工艺品，挑选伴手礼。', map: 'Dry Bridge Market, Tbilisi' },
+          { time: '下午', title: 'Metekhi + 河边散步', place: 'Metekhi St. Virgin Mary Church', note: '城市和河边拍照，后续安排大型超市采购红酒和 churchkhela。', map: 'Metekhi St. Virgin Mary Church, Tbilisi' },
+          { time: '傍晚', title: '老城晚餐与自由活动', place: 'Tbilisi Old Town', note: '按兴趣收尾，不安排硬性时间；也可灵活回到住宿附近。', map: 'Tbilisi Old Town' }
+        ]
+      },
+      {
+        d: 'D7',
+        date: '10/07',
+        title: '休整 → 机场返程',
+        subtitle: '19:00 出发 · 22:00 起飞',
+        total: '约 3–5 小时',
+        items: [
+          { time: '上午', title: '轻松收尾', place: '10 Tarieli St, Tbilisi', note: '收拾行李、补买遗漏伴手礼，确认退房和寄存安排。', map: '10 Tarieli St, Tbilisi' },
+          { time: '下午', title: '整理与最后购物', place: 'Tbilisi', note: '提前准备电子版住宿单、保险和登机信息。', map: 'Tbilisi' },
+          { time: '傍晚', title: '机场返程', place: 'Tbilisi International Airport', note: '从 10 Tarieli St 约 19:00 出发，提前 3 小时到达值机；红酒类伴手礼需托运。', map: 'Tbilisi International Airport' }
+        ]
+      }
+    ];
+
+    const esc = (str) => String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+
+    function openMap(place, type) {
+      const q = encodeURIComponent(place);
+      const url = type === 'apple'
+        ? `https://maps.apple.com/?q=${q}`
+        : `https://www.google.com/maps/search/?api=1&query=${q}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    const dayList = document.getElementById('itinerary');
+    dayList.innerHTML = itinerary.map((day, i) => {
+      const uniquePlaces = [...new Set(day.items.map(item => item.place))];
+      const mapButtons = uniquePlaces.map(place => `
+        <button class="place-btn" type="button" onclick="openMap('${esc(place).replace(/'/g, "\\'")}', 'apple')"> Apple 地图</button>
+        <button class="place-btn alt" type="button" onclick="openMap('${esc(place).replace(/'/g, "\\'")}', 'google')">Google 地图</button>
+      `).join('');
+
+      return `
+        <article class="day ${i === 0 ? 'open' : ''}">
+          <div class="day-head" onclick="this.parentElement.classList.toggle('open')">
+            <div class="day-main">
+              <span class="day-badge">${day.d}</span>
+              <div class="day-title">
+                <strong>${day.date} · ${esc(day.title)}</strong>
+                <small>${esc(day.subtitle)}</small>
+              </div>
+            </div>
+            <button class="toggle" aria-label="展开或收起">⌄</button>
+          </div>
+          <div class="day-body">
+            <ul class="timeline">
+              ${day.items.map(item => `
+                <li>
+                  <div class="time">${esc(item.time)}</div>
+                  <div class="event">
+                    <b>${esc(item.title)}<span class="tag-inline">${day.total}</span></b>
+                    <div class="place-row">
+                      <button class="place-btn" type="button" onclick="openMap('${esc(item.place).replace(/'/g, "\\'")}', 'apple')">⌖ ${esc(item.place)}</button>
+                    </div>
+                    <p>${esc(item.note)}</p>
+                  </div>
+                </li>
+              `).join('')}
+            </ul>
+            <div class="summary-box">
+              <span>本日游玩时间总计</span>
+              <strong>${esc(day.total)}</strong>
+            </div>
+            <div class="pill-row">
+              ${mapButtons}
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    const now = document.getElementById('now');
+    if (now) {
+      now.textContent = '2026.10.01 — 2026.10.07';
+    }
+  </script>
+</body>
+</html>
