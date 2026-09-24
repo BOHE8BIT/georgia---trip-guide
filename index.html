@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#170f27"><title>出发！格鲁吉亚🇬🇪🇬🇪🇬🇪</title>
+<style>
+:root{--bg:#120c1d;--card:#241735dc;--line:#b898d966;--ink:#f8f4ff;--muted:#d7cbe8;--lav:#d4b4e8;--purple:#8a5ec9;--shadow:0 18px 50px #08030f88}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:15px/1.7 system-ui,-apple-system,"Segoe UI","PingFang SC",sans-serif;background:linear-gradient(#120b1ddd,#0b0713ed),url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=2200&q=85') center/cover fixed;padding-bottom:120px !important;}
+a{color:inherit}
+.wrap{max-width:1060px;margin:auto;padding:18px 16px 60px}
+.hero,.card,.day,.map-box{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+.hero{min-height:390px;padding:28px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(135deg,#5a2d82c9,#20122fda),url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1800&q=90') center/cover}
+.top,.section-title,.day-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.eyebrow,.date{font-size:12px;color:var(--muted);letter-spacing:.05em}
+h1{font-size:clamp(40px,8vw,78px);line-height:1;letter-spacing:-.07em;margin:18px 0 12px;color:#fff}
+.subtitle{max-width:800px;color:#f5eeff}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:620px;margin-top:18px}
+.counter{padding:9px;border:1px solid #ffffff3d;border-radius:14px;background:#ffffff12;text-align:center}
+.counter b{display:block;font-size:clamp(22px,5vw,36px)}
+.counter small{color:var(--muted);font-size:11px}
+.section-title{margin:28px 0 12px;cursor:pointer;user-select:none}
+.section-title h2{margin:0;font-size:clamp(21px,3vw,29px)}
+.section-title h2:after{content:'  ⌄';font-size:14px;color:var(--lav)}
+.section-title.closed h2:after{content:'  ›'}
+.section-title.closed+*{display:none}
+.inner{padding:18px}
+.overview p{margin:7px 0}
+.pills{display:flex;flex-wrap:wrap;gap:9px}
+.pill{padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#b898d926;text-decoration:none;font-size:12px}
+.pill:hover,.place:hover{background:#d4b4e844;color:#fff}
+.map-box{padding:16px}
+.map-box svg{display:block;width:100%;height:auto}
+.legend{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;color:var(--muted);font-size:12px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.days{display:grid;gap:14px}
+.day{overflow:hidden;background:#211431e8}
+.day-head{padding:16px 18px;cursor:pointer}
+.day-head:hover{background:#b898d914}
+.day-main{display:flex;align-items:center;gap:12px}
+.badge{width:45px;height:45px;border-radius:14px;background:linear-gradient(135deg,#7d52b8,#b898d9);display:grid;place-items:center;font-weight:800;flex:none}
+.title strong{display:block;line-height:1.4}
+.title small{display:block;color:var(--muted);font-size:12px}
+.day-body{display:none;padding:0 18px 18px}
+.day.open .day-body{display:block}
+.stop{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:11px 0;position:relative}
+.route{position:relative}
+.route:before{content:"";position:absolute;left:16px;top:24px;bottom:24px;border-left:2px dashed var(--line)}
+.dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#2b1944;border:1px solid var(--line);z-index:1}
+.stop h3{font-size:15px;margin:0}
+.place,.restaurant a{color:var(--lav);text-decoration:underline;cursor:pointer}
+.slot{display:block;color:var(--lav);font-size:11px}
+.restaurant{margin:12px 0 0 46px;padding:11px 13px;border:1px solid var(--line);border-radius:13px;background:#b898d914;font-size:13px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin:13px 0 0 46px}
+.map{padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#b898d926;color:#fff;cursor:pointer;font-size:12px}
+.note{margin:11px 0 0 46px;padding-left:10px;border-left:3px solid var(--lav);font-size:13px;color:#f0e7fa}
+.nav-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.nav-item{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:11px 13px;border:1px solid var(--line);border-radius:13px;background:#b898d914}
+.nav-item a{color:var(--lav);text-decoration:none}
+.nav-item span{color:var(--muted);font-size:12px;text-align:right}
+.two{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.list{padding-left:20px;margin:6px 0}
+.tip{border-left:4px solid var(--lav)}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:20px}
+
+/* ==========【新版底部导航：高度扩大一倍｜左侧固定首页按钮 + 横向滑动菜单】========== */
+.bottom-nav{
+  position:fixed;
+  left:0;
+  bottom:0;
+  width:100%;
+  z-index:9999;
+  background:rgba(89,44,131,0.92);
+  backdrop-filter:blur(14px);
+  padding:18px 12px; /* 垂直padding翻倍，导航区域增大 */
+  box-shadow:0 -2px 16px #00000040;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+/* 固定首页按钮 */
+.nav-fixed-home{
+  flex:0 0 auto;
+}
+.nav-fixed-home a{
+  display:block;
+  color:#fff;
+  font-size:14px;
+  padding:9px 14px;
+  border-radius:99px;
+  background:rgba(255,255,255,0.25);
+  text-decoration:none;
+  font-weight:bold;
+}
+/* 可横向滑动区域 */
+.nav-scroll-wrap{
+  flex:1;
+  overflow-x:auto;
+  overflow-y:hidden;
+}
+.nav-scroll-wrap ul{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:8px;
+  margin:0;
+  padding:0;
+  list-style:none;
+  width:max-content;
+}
+.nav-scroll-wrap a{
+  display:block;
+  color:#fff;
+  font-size:14px;
+  padding:9px 14px;
+  border-radius:99px;
+  background:rgba(255,255,255,0.12);
+  text-decoration:none;
+  transition:.2s;
+  white-space:nowrap;
+}
+.nav-scroll-wrap a:hover{
+  background:rgba(255,255,255,0.3);
+}
+/* 隐藏滚动条，保留滑动功能 */
+.nav-scroll-wrap::-webkit-scrollbar{height:3px}
+.nav-scroll-wrap::-webkit-scrollbar-thumb{background:#ffffff40;border-radius:9px}
+
+@media(max-width:720px){
+.two,.nav-grid{grid-template-columns:1fr}
+.hero{min-height:340px;padding:22px 18px}
+.legend{grid-template-columns:repeat(2,1fr)}
+.section-title{align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero" id="top">
+<div class="top"><span class="eyebrow">GEORGIA TRAVEL GUIDE · 6N7D</span><span class="date">2026.10.01 — 2026.10.07</span></div>
+<h1>出发！格鲁吉亚🇬🇪🇬🇪🇬🇪</h1>
+<p class="subtitle">第比利斯 + 卡兹别克 7 天行程｜雪山圣三一教堂、老城漫游、夜间缆车与情侣电影感拍摄。</p>
+<div class="count">
+<div class="counter"><b id="dd">--</b><small>天</small></div>
+<div class="counter"><b id="hh">--</b><small>小时</small></div>
+<div class="counter"><b id="mm">--</b><small>分钟</small></div>
+<div class="counter"><b id="ss">--</b><small>秒</small></div>
+</div>
+</header>
+
+<div class="section-title" id="overview"><h2>📌 快速概览</h2></div>
+<section class="card overview">
+<div class="inner">
+<p><b>📅 出行时间</b>：2026.10.01—2026.10.07</p>
+<p><b>🏨 住宿</b>：第比利斯 10 Tarieli St；卡兹别克入住雪山小木屋</p>
+<p><b>✅ 核心打卡</b>：夜间登山小火车、木偶楼、老城、画画网红咖啡店、圣三一教堂、雪山木屋</p>
+<p><b>🚗 交通</b>：第比利斯市区步行；第比利斯↔卡兹别克包车；16:00酒店接机，21:00接小吴</p>
+<p><b>📸 设备</b>：DJI Mini 4 Pro + 大疆 4 + iPhone 15 Pro Max</p>
+<p><b>🌡️ 气候</b>：第比利斯 10–24℃干燥；卡兹别克 5–14℃，昼夜温差极大，空气干燥</p>
+</div>
+</section>
+
+<div class="section-title" id="emergency"><h2>🚨 紧急联系信息</h2></div>
+<section class="card overview">
+<div class="inner">
+<ul class="list">
+<li>格鲁吉亚全国急救：112（警察/急救/消防通用）</li>
+<li>中国驻格鲁吉亚大使馆领事保护：+995-599201446</li>
+<li>第比利斯公寓地址：10 Tarieli St, Tbilisi</li>
+<li>卡兹别克木屋地址：Stepantsminda 小镇内木屋</li>
+<li>⚠️ 财物丢失：先拨打112报警，保留报警回执</li>
+</ul>
+</div>
+</section>
+
+<div class="section-title" id="immigration"><h2>📄 入境&签证｜货币换汇指南</h2></div>
+<section class="card overview">
+<div class="inner">
+<p><b>签证</b>：中国护照免签，单次停留最长365天，护照剩余有效期≥6个月。</p>
+<p><b>入境备查材料</b>：护照、往返机票行程单、全程酒店预订单、旅行保险，海关随机抽查。</p>
+<p><b>货币GEL拉里</b>：欧元可在第比利斯市区兑换，机场汇率差，少量兑换即可；城市商铺普遍支持刷卡。</p>
+<p><b>小费习惯</b>：餐厅账单自愿，满意给10%；包车司机可行程结束酌情给小费。</p>
+<p><b>禁带物品</b>：生鲜食品、大量肉制品，现金无强制申报限额，大额现金建议备好资金证明。</p>
+</div>
+</section>
+
+<div class="section-title" id="map"><h2>🗺️ 行程总览地图</h2></div>
+<section class="map-box">
+<svg viewBox="0 0 1000 420" role="img" aria-label="七天行程手绘感路线地图">
+<defs><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".015" numOctaves="2" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="3"/></filter></defs>
+<path d="M0 330Q130 245 250 310T500 285T760 300T1000 260V420H0Z" fill="#8a5ec955"/>
+<path d="M90 180C220 130 320 210 445 165S635 220 750 170S875 120 930 90" fill="none" stroke="#d4b4e8" stroke-width="5" stroke-linecap="round" filter="url(#rough)"/>
+<g fill="none" stroke-width="5">
+<path d="M90 180 C140 160 190 145 235 150" stroke="#8a5ec9"/>
+<path d="M235 150 C285 170 330 190 380 200" stroke="#e69a6b"/>
+<path d="M380 200 C430 180 480 160 525 160 L670 205" stroke="#5b9bd5"/>
+<path d="M670 205 C720 180 760 165 805 155" stroke="#e69a6b"/>
+<path d="M805 155 C850 130 895 105 930 90" stroke="#d4b4e8"/>
+</g>
+<g fill="#fff" stroke-width="5">
+<circle cx="90" cy="180" r="15" stroke="#8a5ec9"/>
+<circle cx="235" cy="150" r="15" stroke="#e69a6b"/>
+<circle cx="380" cy="200" r="15" stroke="#5b9bd5"/>
+<circle cx="525" cy="160" r="15" stroke="#5b9bd5"/>
+<circle cx="670" cy="205" r="15" stroke="#5b9bd5"/>
+<circle cx="805" cy="155" r="15" stroke="#e69a6b"/>
+<circle cx="930" cy="90" r="15" stroke="#d4b4e8"/>
+</g>
+<g fill="#f8f4ff" text-anchor="middle" font-family="sans-serif" font-size="15">
+<text x="90" y="220">D1 第比利斯住宿</text>
+<text x="235" y="115">D2 老城住宿</text>
+<text x="380" y="240">D3 包车进山</text>
+<text x="525" y="125">D4 Gergeti</text>
+<text x="670" y="245">D4 雪山木屋</text>
+<text x="805" y="120">D5–D6 第比利斯</text>
+<text x="930" y="58">D7 机场</text>
+</g>
+<path d="M65 370L125 305L185 370M735 370L805 270L875 370" fill="none" stroke="#d4b4e8" stroke-width="4" opacity=".75"/>
+<text x="500" y="395" fill="#d7cbe8" text-anchor="middle" font-size="13">手绘路线：城市步行 · 第比利斯 ↔ 卡兹别克包车 · 节点标注每晚住宿</text>
+</svg>
+<div class="legend">
+<span><i style="background:#8a5ec9"></i>D1 第比利斯住宿</span>
+<span><i style="background:#e69a6b"></i>D2/D5/D6 第比利斯</span>
+<span><i style="background:#5b9bd5"></i>D3/D4 雪山木屋</span>
+<span><i style="background:#d4b4e8"></i>D7 返程</span>
+</div>
+</section>
+
+<div class="section-title" id="transport-full"><h2>🚗 完整交通总攻略</h2></div>
+<section class="card">
+<div class="inner">
+<ul class="list">
+<li><b>第比利斯市内</b>：Metromoney交通卡可坐公交、Rike缆车；打车使用Bolt，机场拒绝路边黑车。</li>
+<li><b>卡兹别克包车</b>：往返包车，9点酒店出发；谈价确认：包含停车费、等待时间；不含景区门票、司机餐费；大风天气山路会临时封闭。</li>
+<li><b>机场交通</b>：接机最省心；公共巴士便宜，行李多不推荐。</li>
+<li><b>⚠️ 登山小火车独立购票，Metromoney卡不能通用</b></li>
+</ul>
+</div>
+</section>
+
+<div class="section-title" id="budget"><h2>💰 行程预算参考</h2></div>
+<section class="card">
+<div class="inner">
+<ul class="list">
+<li>住宿：第比利斯公寓 + 卡兹别克木屋，占最大开销</li>
+<li>交通：往返卡兹别克包车、市内打车、缆车/小火车门票</li>
+<li>餐饮：正餐人均30~70GEL，简餐10~20GEL</li>
+<li>伴手礼：红酒、蜂蜜、手工纪念品</li>
+<li>避坑：景区门口纪念品溢价高，推荐超市采购伴手礼</li>
+</ul>
+</div>
+</section>
+
+<div class="section-title" id="pack-list"><h2>🎒 行李打包清单</h2></div>
+<section class="card">
+<div class="inner">
+<p><b>证件类</b>：护照、保险PDF、酒店机票预订单打印/离线保存</p>
+<p><b>电子设备</b>：欧标C型转换插头，无人机+备用电池、存储卡、充电线</p>
+<p><b>衣物</b>：薄长袖+防风外套，防滑徒步鞋，帽子；卡兹别克山区夜间很冷</p>
+<p><b>护肤药品</b>：高倍防晒、保湿面霜、润唇膏、护手霜；肠胃药、感冒药</p>
+</div>
+</section>
+
+<div class="section-title" id="rain-plan"><h2>🌧️ 雨天Plan B备选方案</h2></div>
+<section class="card">
+<div class="inner">
+<p>如果卡兹别克大雾/下雨，取消上山徒步，替换行程：</p>
+<ul class="list">
+<li>卡兹别克小镇本地博物馆、手作小店逛游</li>
+<li>Rooms酒店咖啡馆久坐，室内拍氛围感照片</li>
+<li>提前返回第比利斯，老城室内画廊、硫磺浴体验</li>
+<li>⚠️ 雨天山路湿滑，无人机禁止起飞</li>
+</ul>
+</div>
+</section>
+
+<div class="section-title" id="faq"><h2>❓ FAQ常见问答</h2></div>
+<section class="card">
+<div class="inner">
+<ul class="list">
+<li>Q：10月卡兹别克会下雪吗？A：大概率不会，高海拔区域早晚接近零度，有可能遇见霜，备好厚外套。</li>
+<li>Q：欧元可以直接换拉里吗？A：可以，老城兑换点汇率优于机场。</li>
+<li>Q：登山小火车要提前订票吗？A：现场刷卡购票，旺季傍晚排队。</li>
+<li>Q：老城爬坡多吗？A：非常多，优先穿舒适防滑鞋。</li>
+</ul>
+</div>
+</section>
+
+<div class="section-title" id="daily"><h2>🗓️ 逐日行程（餐厅全部就近，小红书/抖音热门推荐）</h2></div>
+<section class="days" id="days"></section>
+
+<div class="section-title" id="map-keyword"><h2>🧭 Google Maps 双语导航关键词【按机场→住宿→餐厅→超市→景区分类】</h2></div>
+<section class="card"><div class="inner">
+<p style="color:#d4b4e8;"><b>✈️ 机场</b></p>
+<div class="nav-grid" id="navAirport"></div>
+<br>
+<p style="color:#d4b4e8;"><b>🏠 住宿</b></p>
+<div class="nav-grid" id="navHotel"></div>
+<br>
+<p style="color:#d4b4e8;"><b>🍽️ 餐厅（小红书/抖音热门）</b></p>
+<div class="nav-grid" id="navRest"></div>
+<br>
+<p style="color:#d4b4e8;"><b>🛒 超市</b></p>
+<div class="nav-grid" id="navShop"></div>
+<br>
+<p style="color:#d4b4e8;"><b>🏞️ 景区</b></p>
+<div class="nav-grid" id="navSpot"></div>
+</div></section>
+
+<div class="section-title" id="special"><h2>🚞 夜间小火车详细乘坐攻略</h2></div>
+<section class="two">
+<article class="card tip"><div class="inner"><h3>Tbilisi Funicular｜第比利斯登山小火车（Funicular）</h3><ul class="list">
+<li>位置：Daniel Chonkadze street 22，下站入口。⚠️ 和Rike空中缆车不是同一个，不要跑错！</li>
+<li>运营：09:45–22:30，推荐傍晚18:00–21:00乘坐看夜景。大风天气会临时停运。</li>
+<li>购票：需要购买专用塑料卡，卡费2GEL；单程票价12GEL/人，卡片多人共用。</li>
+<li>拍摄：车厢内拍窗边侧光、牵手互动；山顶平台适合电影感情侣合照，俯瞰全城夜景。</li>
+<li>下山方向第一排座位视野最佳。</li>
+</ul></div></article>
+<article class="card tip"><div class="inner"><h3>Narikala Cable Car｜Rike空中缆车</h3><ul class="list">
+<li>起点Rike广场，往返缆车，和Funicular是两套独立交通，Metromoney卡可用，不能共用小火车卡。</li>
+<li>单程2.5GEL，日落蓝调时刻拍照绝佳。</li>
+<li>山顶古堡区域留意无人机禁飞标识，禁止起飞。</li>
+</ul></div></article>
+</section>
+
+<div class="section-title" id="gift"><h2>🎁 伴手礼推荐</h2></div>
+<section class="two">
+<article class="card"><div class="inner"><ul class="list">
+<li><a class="place" href="https://www.google.com/maps/search/?api=1&query=Tbilisi%20Old%20Town%20Market" target="_blank">第比利斯老城市集｜Tbilisi Old Town Market</a>：手工陶瓷、银饰、香料</li>
+<li><a class="place" href="https://www.google.com/maps/search/?api=1&query=Goodwill%20Tbilisi%20Old%20Town" target="_blank">Goodwill 老城超市｜Goodwill Tbilisi Old Town</a>：红酒、高山蜂蜜、Adjika辣酱</li>
+<li><a class="place" href="https://www.google.com/maps/search/?api=query=Stepantsminda%20Georgia" target="_blank">卡兹别克小镇｜Stepantsminda</a>：野花高山蜂蜜</li>
+</ul></div></article>
+<article class="card tip" id="weather"><div class="inner"><h3>🌤️ 气候、护肤与穿搭</h3>
+<p>第比利斯白天18–24℃，干燥；卡兹别克5–14℃，风大、极度干燥。</p>
+<p>必备：保湿面霜、高倍防晒、润唇膏、护手霜；薄外套+防风厚外套，防滑徒步鞋。</p></div></article>
+</section>
+
+<div class="section-title" id="photo"><h2>📸 拍照滤镜、无人机规则｜情侣电影感合照指引</h2></div>
+<section class="two">
+<article class="card"><div class="inner"><strong>调色APP：Dazz / 极影</strong>
+<ul class="list">
+<li>🏙️ 第比利斯城市街巷/夜景：Dazz Classic U3 / NC复古；极影 EK1</li>
+<li>☕网红咖啡馆人像：Dazz D Filt；极影 FN1，暖调胶片氛围感</li>
+<li>🌉和平桥蓝调时刻：牵手行走、剪影、横向宽画幅</li>
+<li>🏔️Gergeti圣三一教堂：构图下三分法，预留雪山天空空间</li>
+<li>🏠雪山木屋：逆光轮廓，并肩眺望雪山，电影感横向宽屏</li>
+</ul>
+<strong>情侣合照拍摄指引</strong>
+<ul class="list">
+<li>抓拍动态：牵手漫步、互相回头对视，拒绝僵硬摆拍</li>
+<li>木屋窗边：侧逆光，面部柔和轮廓，适合慢镜头氛围感照片</li>
+<li>无人机Mini4Pro：俯拍木屋山谷、两人站在雪山前远景合照</li>
+</ul>
+</article>
+<article class="card tip"><div class="inner"><h3>⚠️ 无人机提醒</h3>
+<p>第比利斯老城、古堡、教堂区域属于禁飞区；仅卡兹别克木屋开阔山谷可飞行。Mini4Pro大风禁止起飞，电池随身不可托运。</p></div></article>
+</section>
+
+<div class="section-title" id="checklist"><h2>📝 出行待办清单（纯文本，无勾选框）</h2></div>
+<section class="card">
+<div class="inner">
+<ul class="list">
+<li>保存公寓+木屋预订确认单，电子档备份两份</li>
+<li>保存往返机票行程单、境外旅行保险PDF</li>
+<li>准备少量拉里现金，大额消费刷卡</li>
+<li>备好保湿护肤套装、防晒、唇膏护手霜</li>
+<li>无人机全套配件、备用电池、充电线、欧标C型转换插头</li>
+<li>携带护照，落地第比利斯市区办理电话卡</li>
+<li>提前离线缓存全部景点Google地图点位</li>
+<li>查阅格鲁吉亚无人机法规，标记全部禁飞区域</li>
+</ul>
+</div>
+</section>
+
+<div class="footer">💡 这份攻略为个人自用行程，仅供本次格鲁吉亚旅行参考</div>
+</main>
+
+<!-- 新版底部导航【高度扩大一倍，字体加大，左侧固定首页按钮，右侧横向滑动】 -->
+<div class="bottom-nav">
+  <div class="nav-fixed-home">
+    <a href="#top">🏠首页</a>
+  </div>
+  <div class="nav-scroll-wrap">
+    <ul>
+      <li><a href="#overview">概览</a></li>
+      <li><a href="#emergency">紧急</a></li>
+      <li><a href="#immigration">入境</a></li>
+      <li><a href="#map">总览地图</a></li>
+      <li><a href="#transport-full">交通汇总</a></li>
+      <li><a href="#budget">预算</a></li>
+      <li><a href="#pack-list">行李清单</a></li>
+      <li><a href="#rain-plan">雨天预案</a></li>
+      <li><a href="#faq">FAQ问答</a></li>
+      <li><a href="#daily">逐日行程</a></li>
+      <li><a href="#map-keyword">导航库</a></li>
+      <li><a href="#special">交通攻略</a></li>
+      <li><a href="#gift">伴手礼</a></li>
+      <li><a href="#photo">拍照指南</a></li>
+      <li><a href="#checklist">待办清单</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const tb='10 Tarieli St, Tbilisi',kaz='Kazbegi cottage, Stepantsminda';
+// =========导航关键词【严格按：机场｜住宿｜餐厅｜超市｜景区分类】=========
+const navAirport=[['第比利斯国际机场','Tbilisi International Airport']];
+const navHotel=[['第比利斯公寓｜10 Tarieli St','10 Tarieli St, Tbilisi'],['卡兹别克雪山木屋','Kazbegi cottage, Stepantsminda']];
+const navRest=[
+['D1 老城网红｜Dukani Ornament（D1老城附近，小红书推荐）','Dukani Ornament Tbilisi'],
+['D2木偶楼旁｜Café Gabriadze（木偶楼隔壁，抖音热门）','Café Gabriadze Tbilisi'],
+['D3卡兹别克｜Rooms Hotel Kazbegi餐厅（雪山观景，小红书顶流）','Restaurant Rooms Kazbegi'],
+['D4小镇｜Ghebi Restaurant（卡兹别克小镇本地家常菜，微博推荐）','Ghebi Restaurant Stepantsminda'],
+['D5老城｜Supra Tbilisi（格鲁吉亚传统大餐，小红书必吃）','Supra Tbilisi'],
+['D6硫磺浴旁｜Café Littera（文艺咖啡馆，老城彩色街巷附近）','Café Littera Tbilisi']
+];
+const navShop=[['SPAR老城超市｜SPAR Old Town','SPAR Supermarket Old Town'],['Goodwill老城超市｜Goodwill','Goodwill Tbilisi Old Town']];
+const navSpot=[
+['画画咖啡店｜Art Painting Café','Art Painting Café Tbilisi'],
+['木偶钟楼｜雷佐加布里亚泽剧院','Rezo Gabriadze Theater'],
+['和平桥｜和平大桥','Bridge of Peace Tbilisi'],
+['格鲁吉亚之母｜格鲁吉亚之母雕像','Mother of Georgia Monument'],
+['老式登山小火车｜第比利斯Funicular','Tbilisi Funicular'],
+['Rike缆车起点｜里克公园缆车','Narikala Cable Car Rike Station'],
+['圣三一教堂｜格尔盖蒂圣三一教堂','Gergeti Trinity Church'],
+['硫磺浴街区｜Abanotubani','Abanotubani, Tbilisi'],
+['老第比利斯彩色街巷｜Old Tbilisi','Old Tbilisi, Tbilisi'],
+['老城市集｜Tbilisi Old Town Market','Tbilisi Old Town Market']
+];
+const maps=q=>`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+//渲染分类导航
+document.getElementById('navAirport').innerHTML=navAirport.map(([cn,en])=>`<div class="nav-item"><a href="${maps(en)}" target="_blank" rel="noopener">${cn}</a><span>${en}</span></div>`).join('');
+document.getElementById('navHotel').innerHTML=navHotel.map(([cn,en])=>`<div class="nav-item"><a href="${maps(en)}" target="_blank" rel="noopener">${cn}</a><span>${en}</span></div>`).join('');
+document.getElementById('navRest').innerHTML=navRest.map(([cn,en])=>`<div class="nav-item"><a href="${maps(en)}" target="_blank" rel="noopener">${cn}</a><span>${en}</span></div>`).join('');
+document.getElementById('navShop').innerHTML=navShop.map(([cn,en])=>`<div class="nav-item"><a href="${maps(en)}" target="_blank" rel="noopener">${cn}</a><span>${en}</span></div>`).join('');
+document.getElementById('navSpot').innerHTML=navSpot.map(([cn,en])=>`<div class="nav-item"><a href="${maps(en)}" target="_blank" rel="noopener">${cn}</a><span>${en}</span></div>`).join('');
+
+//每日行程，餐厅全部就近，来自小红书/抖音/微博热门推荐
+const data=[
+{d:'D1',date:'10/01',title:'落地接机 → 入住 → 电话卡、换汇与采购',sub:'16:00航班落地 · 21:00接小吴',hotel:tb,note:'17:30起步行办理电话卡、换汇、超市采购；21:00搭乘接机车辆接小吴抵达公寓。餐厅位于老城公寓步行可达，格鲁吉亚传统家常菜，小红书高分。',food:['Dukani Ornament｜老城杜卡尼','Dukani Ornament Tbilisi'],id:'day1',
+stops:[
+['机场｜第比利斯国际机场','Tbilisi International Airport','16:00'],
+['入住公寓｜10 Tarieli St',tb,'17:00'],
+['SPAR / Goodwill超市｜老城补给','Goodwill Tbilisi Old Town','傍晚'],
+['接小吴｜第比利斯国际机场','Tbilisi International Airport','21:00']
+]},
+{d:'D2',date:'10/02',title:'网红画画咖啡 → 木偶楼 → 和平桥 → 格鲁吉亚之母 → 夜间登山小火车',sub:'全程步行 · 电影感情侣拍照',hotel:tb,note:'老城坡道较多；晚餐选木偶楼隔壁Café Gabriadze，抖音很多情侣打卡，吃完直接步行去登山小火车，不用绕路。',food:['Café Gabriadze｜木偶楼旁网红餐','Café Gabriadze Tbilisi'],id:'day2',
+stops:[
+['画画咖啡店｜Art Painting Café','Art Painting Café Tbilisi','上午'],
+['木偶楼｜雷佐加布里亚泽剧院','Rezo Gabriadze Theater','中午'],
+['和平桥｜和平大桥','Bridge of Peace Tbilisi','下午'],
+['格鲁吉亚之母｜格鲁吉亚之母雕像','Mother of Georgia Monument','下午'],
+['登山小火车｜Tbilisi Funicular','Tbilisi Funicular','傍晚']
+]},
+{d:'D3',date:'10/03',title:'第比利斯包车 → 卡兹别克 → 圣三一教堂 → 雪山木屋',sub:'9点后酒店出发 · 雪山情侣大片',hotel:tb,note:'上午9点酒店门口出发包车进山；中午抵达Stepantsminda小镇；下午圣三一教堂打卡航拍；傍晚入住小木屋。Rooms酒店餐厅就在圣三一教堂山下，小红书雪山观景TOP1。',food:['Rooms Hotel Kazbegi｜雪山观景餐厅','Restaurant Rooms Kazbegi'],id:'day3',
+stops:[
+['酒店出发｜10 Tarieli St',tb,'09:00'],
+['卡兹别克小镇｜斯特潘茨明达','Stepantsminda, Georgia','中午'],
+['Rooms餐厅｜Rooms Hotel Kazbegi','Restaurant Rooms Kazbegi','午餐'],
+['圣三一教堂｜格尔盖蒂圣三一教堂','Gergeti Trinity Church','下午'],
+['雪山木屋｜卡兹别克小木屋',kaz,'傍晚']
+]},
+{d:'D4',date:'10/04',title:'卡兹别克轻徒步 → 蜂蜜采购 → 木屋雪山日落',sub:'轻松漫游 · 情侣合照',hotel:kaz,note:'晴天再安排徒步+无人机航拍；起雾大风就在木屋休整。Ghebi Restaurant位于Stepantsminda小镇中心，步行可达木屋，微博本地推荐家常菜。',food:['Ghebi Restaurant｜卡兹别克小镇家常菜','Ghebi Restaurant Stepantsminda'],id:'day4',
+stops:[
+['木屋早餐｜卡兹别克小木屋',kaz,'上午'],
+['轻徒步｜卡兹别克山谷','Kazbegi Valley, Georgia','上午'],
+['蜂蜜采购｜斯特潘茨明达小镇','Stepantsminda, Georgia','下午'],
+['木屋日落｜卡兹别克小木屋',kaz,'傍晚']
+]},
+{d:'D5',date:'10/05',title:'卡兹别克包车返程 → 第比利斯休整',sub:'退房 · 返程 · Supra晚餐',hotel:kaz,note:'上午木屋退房拍照，包车中午返回第比利斯；下午公寓休整休息。Supra老城店，小红书格鲁吉亚盛宴热门，靠近和平桥老城区域。',food:['Supra｜苏普拉传统格鲁吉亚大餐','Supra Tbilisi'],id:'day5',
+stops:[
+['木屋退房｜卡兹别克小木屋',kaz,'上午'],
+['返回公寓｜10 Tarieli St',tb,'中午'],
+['老城散步｜老第比利斯','Old Tbilisi, Tbilisi','下午'],
+['Supra餐厅｜Supra Tbilisi','Supra Tbilisi','晚餐']
+]},
+{d:'D6',date:'10/06',title:'老城街巷 → 格鲁吉亚之母 → 缆车补拍',sub:'轻松漫游 · 不赶行程',hotel:tb,note:'上午硫磺浴街区、彩色小巷闲逛；下午二刷格鲁吉亚之母雕像+Rike缆车。Café Littera在硫磺浴街区附近，文艺咖啡馆，适合午餐小憩，小红书很多人像打卡。',food:['Café Littera｜硫磺浴旁文艺咖啡简餐','Café Littera Tbilisi'],id:'day6',
+stops:[
+['硫磺浴街区｜Abanotubani','Abanotubani, Tbilisi','上午'],
+['彩色街巷｜老第比利斯','Old Tbilisi, Tbilisi','上午'],
+['文学咖啡馆｜Café Littera','Café Littera Tbilisi','午餐'],
+['格鲁吉亚之母｜格鲁吉亚之母雕像','Mother of Georgia Monument','下午'],
+['Rike空中缆车｜Narikala Cable Car','Narikala Cable Car Rike Station','下午']
+]},
+{d:'D7',date:'10/07',title:'伴手礼采购 → 半日收尾 → 机场返程',sub:'老城市集 · Goodwill · 22:00航班',hotel:tb,note:'上午老城市集挑选伴手礼；下午Goodwill采购，整理行李；国际航班建议提前3小时抵达机场。就近简餐，超市可以采购面包奶酪快速解决。',food:['老城就近简餐｜Old Town Snack','Tbilisi Old Town Market'],id:'day7',
+stops:[
+['老城市集｜第比利斯老城市集','Tbilisi Old Town Market','上午'],
+['Goodwill超市｜Goodwill老城超市','Goodwill Tbilisi Old Town','下午'],
+['整理行李｜10 Tarieli St',tb,'下午'],
+['机场｜第比利斯国际机场','Tbilisi International Airport','22:00']
+]}
+];
+const root=document.getElementById('days');
+root.innerHTML=data.map((day,i)=>`<article class="day ${i===0?'open':''}" id="${day.id}">
+<div class="day-head">
+<div class="day-main"><span class="badge">${day.d}</span><div class="title"><strong>${day.date} · ${day.title}</strong><small>${day.sub} · 住宿：${day.hotel}</small></div></div>
+</div>
+<div class="day-body">
+<div class="route">
+${day.stops.map((s,n)=>`<div class="stop">
+<div class="dot">${n===0?'住':n}</div>
+<div>
+<h3>${s[0]}</h3>
+<a class="place" href="${maps(s[1])}" target="_blank" rel="noopener">${s[0]} · Google Maps</a>
+<span class="slot">${s[2]}</span>
+</div>
+</div>`).join('')}
+</div>
+<div class="restaurant">🍽️ <b>当日餐厅（小红书/抖音热门｜就近景区）：</b><a href="${maps(day.food[1])}" target="_blank" rel="noopener">${day.food[0]} · 点击跳转 Google Maps</a></div>
+<div class="actions">
+<button class="map" data-route="${[day.hotel,...day.stops.map(s=>s[1]),day.hotel].join(' to ')}">⌖ Google 地图：酒店 → 景点 → 酒店</button>
+</div>
+<p class="note">${day.note}</p>
+</div>
+</article>`).join('');
+
+document.querySelectorAll('.day-head').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
+document.querySelectorAll('[data-route]').forEach(b=>b.addEventListener('click',()=>window.open(maps(b.dataset.route),'_blank','noopener')));
+document.querySelectorAll('.section-title').forEach(h=>h.addEventListener('click',()=>h.classList.toggle('closed')));
+
+// 严格UTC+4 倒计时（跨时区绝对准确）
+const target=new Date('2026-10-01T16:00:00+04:00').getTime();
+function tick(){
+  let n=Math.max(0,target-Date.now());
+  const day = Math.floor(n / 86400000);
+  const hour = Math.floor((n % 86400000) / 3600000);
+  const min = Math.floor((n % 3600000) / 60000);
+  const sec = Math.floor((n % 60000) / 1000);
+  document.getElementById('dd').textContent=String(day).padStart(2,'0');
+  document.getElementById('hh').textContent=String(hour).padStart(2,'0');
+  document.getElementById('mm').textContent=String(min).padStart(2,'0');
+  document.getElementById('ss').textContent=String(sec).padStart(2,'0');
+}
+tick();
+setInterval(tick,1000);
+</script>
+</body>
+</html>
