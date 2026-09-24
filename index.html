@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇬🇪 Georgia Travel Guide | 格鲁吉亚7天旅行攻略</title>
+    <script>
+        // 自动日夜主题切换
+        function setTheme() {
+            const hour = new Date().getHours();
+            const html = document.documentElement;
+            if (hour >= 7 && hour < 19) {
+                html.setAttribute('data-theme','light');
+            } else {
+                html.setAttribute('data-theme','dark');
+            }
+        }
+        setTheme();
+    </script>
+    <style>
+        :root[data-theme="dark"]{
+            --bg:#191029;
+            --bg-card:rgba(90,45,130,0.18);
+            --text:#F3F0F8;
+            --text-secondary:#b9a8d1;
+            --primary:#5A2D82;
+            --secondary:#B898D9;
+            --accent:#D4B4E8;
+            --code-bg:#2A1B42;
+            --border:#70479c66;
+        }
+        :root[data-theme="light"]{
+            --bg:#f5f0fc;
+            --bg-card:rgba(255,255,255,0.72);
+            --text:#2c1a44;
+            --text-secondary:#5b4477;
+            --primary:#5A2D82;
+            --secondary:#784ca8;
+            --accent:#9b68c7;
+            --code-bg:#e9e2f4;
+            --border:#b898d9;
+        }
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
+            background:var(--bg);
+            color:var(--text);
+            background-image: url("https://images.unsplash.com/photo-1589303367601-4422c10350c0?q=80&w=1920");
+            background-size:cover;background-position:center;
+            background-attachment:fixed;
+            background-blend-mode:overlay;
+            line-height:1.65;padding:12px;
+        }
+        .mask{
+            position:fixed;inset:0;
+            background:linear-gradient(180deg, rgba(25,16,41,0.75),rgba(25,16,41,0.88));
+            z-index:-1;
+        }
+        [data-theme="light"] .mask{
+            background:linear-gradient(180deg, rgba(255,250,255,0.72),rgba(240,230,250,0.85));
+        }
+        .container{max-width:1100px;margin:0 auto;}
+        .hero{
+            text-align:center;padding:40px 20px;border-radius:20px;
+            background:linear-gradient(135deg,rgba(90,45,130,0.4),rgba(184,152,217,0.2));
+            margin-bottom:24px;
+        }
+        .hero h1{font-size:2.2rem;color:#fff;margin-bottom:8px;}
+        .hero p{color:var(--text-secondary)}
+        .card{
+            background:var(--bg-card);
+            backdrop-filter:blur(12px);
+            border:1px solid var(--border);
+            border-radius:16px;padding:20px;margin-bottom:20px;
+            box-shadow:0 4px 14px rgba(90,45,130,0.15);
+            transition:transform 0.25s;
+        }
+        .card:hover{transform:translateY(-3px);}
+        .countdown-wrap h2{color:var(--secondary);margin-bottom:12px;font-size:1.3rem}
+        .countdown{font-size:2.4rem;font-weight:bold;color:var(--accent);text-align:center}
+        .nav{display:flex;gap:8px;flex-wrap-wrap;margin-bottom:24px;}
+        .nav a{
+            color:var(--text);padding:8px 12px;border-radius:8px;
+            background:var(--bg-card);border:1px solid var(--border);
+            text-decoration:none;transition:0.2s;
+        }
+        .nav a:hover{background:var(--primary);color:#fff;}
+        .svg-map{width:100%;height:360px;border-radius:12px;background:rgba(0,0,0,0.1);}
+        .day-block{border:1px solid var(--border);border-radius:16px;margin:18px 0;overflow:hidden}
+        details{background:var(--bg-card)}
+        summary{
+            padding:16px;cursor:pointer;font-weight:bold;color:var(--secondary);
+            font-size:1.15rem;
+        }
+        .day-content{padding:0 18px 18px 18px;}
+        .timeline-row{display:grid;grid-template-columns:120px 1fr;gap:12px;margin:14px 0}
+        .time-col{font-weight:bold;color:var(--accent)}
+        .place-link{
+            color:var(--accent);text-decoration:underline;cursor:pointer;
+        }
+        .code-block{
+            background:var(--code-bg);padding:12px;border-radius:8px;
+            font-family:monospace;overflow-x:auto;margin:8px 0;
+        }
+        .tip-block{
+            border-left:4px solid var(--primary);padding:12px;margin:12px 0;
+            background:rgba(90,45,130,0.1);
+        }
+        .divider{
+            height:3px;border-radius:3px;
+            background:linear-gradient(90deg,transparent,var(--primary),transparent);
+            margin:30px 0;
+        }
+        footer{text-align:center;color:var(--text-secondary);padding:20px;font-size:0.9rem}
+        .tag{
+            display:inline-block;background:var(--primary);color:white;
+            padding:3px 8px;border-radius:99px;font-size:0.8rem;margin-right:6px;
+        }
+    </style>
+</head>
+<body>
+<div class="mask"></div>
+<div class="container">
+    <section class="hero">
+        <h1>🇬🇪 Georgia Travel Guide</h1>
+        <p>格鲁吉亚7天旅行攻略｜10.1–10.7</p>
+    </section>
+
+    <div class="nav">
+        <a href="#countdown">倒计时</a>
+        <a href="#map">行程总览地图</a>
+        <a href="#confirm">已确认订单</a>
+        <a href="#daily">逐日行程</a>
+        <a href="#todo">待办清单</a>
+        <a href="#tips">实用贴士</a>
+    </div>
+
+    <!-- 1.此刻关注卡片 + 时区倒计时（基准：出发 2026-10-01T16:40:00+04:00 第比利斯时区UTC+4） -->
+    <section id="countdown" class="card countdown-wrap">
+        <h2>⏱️ 此刻关注 · 下一个行程：航班A落地第比利斯机场 10月1日 16:40 (UTC+4)</h2>
+        <div class="countdown" id="cd"></div>
+    </section>
+
+    <!--2.手绘SVG总路线地图-->
+    <section id="map" class="card">
+        <h2 style="color:var(--secondary);margin-bottom:12px;">🗺️行程总览手绘地图</h2>
+        <svg class="svg-map" viewBox="0 0 800 340">
+            <defs>
+                <linearGradient id="line1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#B898D9"/><stop offset="100%" stop-color="#D4B4E8"/></linearGradient>
+            </defs>
+            <!--点位-->
+            <circle cx="120" cy="160" r="7" fill="#B898D9"/>
+            <text x="132" y="164" fill="#F3F0F8" font-size="14">第比利斯(住宿D1/D2)</text>
+
+            <circle cx="620" cy="90" r="7" fill="#744fc1"/>
+            <text x="634" y="94" fill="#F3F0F8" font-size="14">卡兹别克小木屋D3/D4</text>
+
+            <circle cx="120" cy="160" r="7" fill="#B898D9"/>
+            <text x="132" y="190" fill="#F3F0F8" font-size="14">第比利斯D5/D6/D7</text>
+            <!--路线-->
+            <path d="M120,160 Q 360,80 620,90" stroke="url(#line1)" stroke-width="4" fill="none"/>
+            <path d="M620,90 Q 360,220 120,160" stroke="#5A2D82" stroke-width="4" fill="none" stroke-dasharray="8 4"/>
+        </svg>
+        <p style="margin-top:10px;color:var(--text-secondary)">实线D3前往卡兹别克｜虚线D5返回第比利斯</p>
+    </section>
+
+    <!--3.已确认机票/酒店/包车-->
+    <section id="confirm" class="card">
+        <h2 style="color:var(--secondary);margin-bottom:14px;">✅已确认预订信息</h2>
+        <div class="tip-block">
+            <h3>🏨酒店</h3>
+            <p>PREMIUM APARTMENTS WITH TERRACE IN OLD TBILISI｜第比利斯老城露台公寓</p>
+            <p>①10.1–10.3 €211.10｜②10.5–10.7 €211.10</p>
+            <p>ELLO cottage Kazbegi｜卡兹别克小木屋 10.3–10.5</p>
+        </div>
+        <div class="tip-block">
+            <h3>✈️航班A｜土耳其航空</h3>
+            <p>TK1044｜09:30 亨利科安达 → 11:05伊斯坦布尔</p>
+            <p>TK382｜13:20伊斯坦布尔 → 16:40第比利斯国际（UTC+4）</p>
+            <p>返程TK387｜03:15第比利斯 → 04:40伊斯坦布尔；TK1041｜10:00伊斯坦布尔→11:15亨利科安达</p>
+        </div>
+        <div class="tip-block">
+            <h3>✈️航班B｜南方航空</h3>
+            <p>CZ3629｜08:00温州龙湾T2→15:40乌鲁木齐；CZ8143｜19:50乌鲁木齐→21:20第比利斯T1</p>
+            <p>返程CZ6040｜22:50第比利斯T1；CZ3630 10.8 15:00乌鲁木齐→22:15温州</p>
+        </div>
+        <div class="tip-block">
+            <h3>🚗包车：第比利斯 ↔ 卡兹别克往返</h3>
+            <p>起点：老城露台公寓，单程约2.5h；包含圣三一教堂等候打卡时间</p>
+        </div>
+    </section>
+
+    <!--4.逐日行程-->
+    <section id="daily">
+        <h2 style="color:var(--secondary);margin:20px 0 10px 0;">📅逐日行程</h2>
+
+        <div class="day-block">
+            <details open>
+                <summary>Day1｜10月1日 落地第比利斯，入住老城露台公寓</summary>
+                <div class="day-content">
+                    <div class="timeline-row"><span class="time-col">16:40</span><span>航班A落地第比利斯机场，接机前往老城公寓办理入住</span></div>
+                    <div class="timeline-row"><span class="time-col">21:20</span><span>航班B落地第比利斯机场，公寓安排接机前往老城露台公寓</span></div>
+                    <div class="timeline-row"><span class="time-col">傍晚-夜间</span><span>汇合，步行市区，办理格鲁吉亚电话卡、换汇；公寓附近超市采购零食、饮用水、简餐食材</span></div>
+                    <p>🍽️午餐（航班A落地前，机场简餐）：Airport Cafe Tbilisi｜机场咖啡馆 <span class="place-link" onclick="openMap('Tbilisi International Airport Cafe')">点击打开Google地图</span></p>
+                    <div class="code-block">Tbilisi International Airport Cafe（第比利斯国际机场咖啡馆）</div>
+                    <p>📖简介：机场航站楼简餐，三明治、咖啡快速充饥</p>
+                    <p>🍽️晚餐：Shavi Lomi｜黑面包餐厅 <span class="place-link" onclick="openMap('Shavi Lomi')">点击打开Google地图</span></p>
+                    <div class="code-block">Shavi Lomi（黑面包餐厅）</div>
+                    <p>📖简介：第比利斯老城热门格鲁吉亚菜，离公寓步行可达</p>
+                    <p>夜间：公寓露台拍摄落地纪念情侣合照</p>
+                </div>
+            </details>
+        </div>
+
+        <div class="day-block">
+            <details>
+                <summary>Day2｜10月2日 第比利斯老城漫游</summary>
+                <div class="day-content">
+                    <div class="timeline-row"><span class="time-col">上午</span><span>前往网红画画咖啡店打卡 ☕Art Cafe Linville｜艺术咖啡馆 <span class="place-link" onclick="openMap('Art Cafe Linville')">打开地图</span></span></div>
+                    <div class="code-block">Art Cafe Linville（艺术咖啡馆）</div>
+                    <div class="timeline-row"><span class="time-col">中午</span><span>木偶楼打卡，等候木偶楼整点报时。午餐：Cafe Gabriadze｜加布里亚泽咖啡馆 <span class="place-link" onclick="openMap('Cafe Gabriadze')">打开地图</span></span></div>
+                    <div class="code-block">Cafe Gabriadze（加布里亚泽咖啡馆）</div>
+                    <div class="timeline-row"><span class="time-col">下午</span><span>和平桥、格鲁吉亚之母雕像，轻松游览</span></div>
+                    <p>🍽️晚餐：Restaurant 27｜27号餐厅 <span class="place-link" onclick="openMap('Restaurant 27')">打开地图</span></p>
+                    <div class="code-block">Restaurant 27（27号餐厅）</div>
+                    <div class="timeline-row"><span class="time-col">夜晚</span><span>搭乘第比利斯夜间Funicular登山小火车，拍摄城市夜景</span></div>
+                    <p>🚂小火车导航：Tbilisi Funicular Lower Station（Daniel Chonkadze street 22）第比利斯登山小火车下站 <span class="place-link" onclick="openMap('Tbilisi Funicular Lower Station Daniel Chonkadze street 22')">打开地图</span></p>
+                    <div class="tip-block">
+                        <strong>小火车贴士</strong>
+                        <p>票价：塑料卡费2GEL；单程12GEL/人；运营9:45‑22:30；大风可能临时停运。⚠️不是Rike空中缆车，不要跑错车站</p>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <div class="day-block">
+            <details>
+                <summary>Day3｜10月3日 第比利斯出发前往卡兹别克，入住ELLO小木屋</summary>
+                <div class="day-content">
+                    <div class="timeline-row"><span class="time-col">上午(9点后)</span><span>包车从第比利斯老城露台公寓出发前往卡兹别克</span></div>
+                    <p>🍽️午餐：Kazi Restaurant｜卡齐观景餐厅 <span class="place-link" onclick="openMap('Kazi Restaurant')">打开地图</span></p>
+                    <div class="code-block">Kazi Restaurant（卡齐餐厅）</div>
+                    <div class="timeline-row"><span class="time-col">下午</span><span>抵达卡兹别克，ELLO cottage办理入住；木屋休整，窗边雪山情侣人像，无人机航拍木屋全景</span></div>
+                    <div class="timeline-row"><span class="time-col">傍晚</span><span>圣三一教堂打卡，俯瞰卡兹别克山谷雪山</span></div>
+                    <p>🍽️晚餐：Rooms Hotel Restaurant｜Rooms酒店餐厅 <span class="place-link" onclick="openMap('Rooms Hotel Kazbegi')">打开地图</span></p>
+                    <div class="code-block">Rooms Hotel Kazbegi（卡兹别克Rooms酒店）</div>
+                    <div class="tip-block">
+                        <strong>包车贴士</strong>
+                        <p>往返单程约2.5小时；确认报价是否含停车、等候费；山区弯道多，10月山区气温低，备厚外套</p>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <div class="day-block">
+            <details>
+                <summary>Day4｜10月4日 卡兹别克全天木屋慢旅行</summary>
+                <div class="day-content">
+                    <div class="timeline-row"><span class="time-col">上午</span><span>木屋窗边拍摄清晨雪山人像，电影感情侣合照，Dazz、极影APP调色</span></div>
+                    <p>🍽️午餐：Cafe 5047｜5047雪山咖啡馆 <span class="place-link" onclick="openMap('Cafe 5047')">打开地图</span></p>
+                    <div class="code-block">Cafe 5047（5047咖啡馆）</div>
+                    <div class="timeline-row"><span class="time-col">下午</span><span>卡兹别克山谷轻徒步，大疆无人机雪山航拍取景</span></div>
+                    <p>🍽️晚餐：Sno Cafe Kazbegi｜斯诺咖啡馆 <span class="place-link" onclick="openMap('Sno Cafe Kazbegi')">打开地图</span></p>
+                    <div class="code-block">Sno Cafe Kazbegi（卡兹别克斯诺咖啡馆）</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="day-block">
+            <details>
+                <summary>Day5｜10月5日 卡兹别克退房，返回第比利斯老城露台公寓</summary>
+                <div class="day-content">
+                    <div class="timeline-row"><span class="time-col">上午</span><span>ELLO木屋退房，包车返回第比利斯老城公寓</span></div>
+                    <p>🍽️午餐：Roadside Restaurant Dusheti｜杜舍蒂路边观景餐厅 <span class="place-link" onclick="openMap('Roadside Restaurant Dusheti')">打开地图</span></p>
+                    <div class="code-block">Roadside Restaurant Dusheti（杜舍蒂路边餐厅）</div>
+                    <div class="timeline-row"><span class="time-col">下午</span><span>公寓休整，露台休息，周边采购零食</span></div>
+                    <p>🍽️晚餐：Samikitno｜萨米基诺餐厅 <span class="place-link" onclick="openMap('Samikitno')">打开地图</span></p>
+                    <div class="code-block">Samikitno（萨米基诺餐厅）</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="day-block">
+            <details>
+                <summary>Day6｜10月6日 第比利斯城市游览｜Rike空中缆车、老城闲逛挑选伴手礼</summary>
+                <div class="day-content">
+                    <div class="timeline-row"><span class="time-col">上午</span><span>Rike‑Narikala空中缆车打卡，登顶俯瞰全城。导航：Rike Park Aerial Tramway <span class="place-link" onclick="openMap('Rike Park Aerial Tramway')">打开地图</span></span></div>
+                    <div class="code-block">Rike Park Aerial Tramway（Rike Park缆车下站）里克公园空中缆车</div>
+                    <div class="tip-block">缆车单程2.5GEL，Metromoney卡，和小火车卡互相独立；大风会停运，日落蓝调时段拍照最佳</div>
+                    <p>🍽️午餐：Cafe Littera｜利特拉文艺咖啡馆 <span class="place-link" onclick="openMap('Cafe Littera')">打开地图</span></p>
+                    <div class="code-block">Cafe Littera（利特拉咖啡馆）</div>
+                    <div class="timeline-row"><span class="time-col">下午</span><span>老城闲逛，挑选伴手礼</span></div>
+                    <p>🍽️晚餐：Lobio House｜豆泥小屋 <span class="place-link" onclick="openMap('Lobio House')">打开地图</span></p>
+                    <div class="code-block">Lobio House（豆泥小屋）</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="day-block">
+            <details>
+                <summary>Day7｜10月7日 伴手礼采购，晚间航班B返程</summary>
+                <div class="day-content">
+                    <div class="timeline-row"><span class="time-col">白天</span><span>集中采购伴手礼，放回公寓存放行李，露台短暂休整</span></div>
+                    <p>🍽️午餐：Old Tbilisi Cafe｜老第比利斯咖啡馆 <span class="place-link" onclick="openMap('Old Tbilisi Cafe')">打开地图</span></p>
+                    <div class="code-block">Old Tbilisi Cafe（老第比利斯咖啡馆）</div>
+                    <p>🍽️晚餐：Apollon Restaurant｜阿波罗餐厅 <span class="place-link" onclick="openMap('Apollon Restaurant')">打开地图</span></p>
+                    <div class="code-block">Apollon Restaurant（阿波罗餐厅）</div>
+                    <div class="timeline-row"><span class="time-col">傍晚</span><span>从公寓出发前往第比利斯机场</span></div>
+                    <div class="timeline-row"><span class="time-col">夜间22:50</span><span>搭乘航班B返程；另一航班留在第比利斯休整，准备10月8日凌晨航班A</span></div>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!--5.待办清单 纯文本无勾选框-->
+    <section id="todo" class="card">
+        <h2 style="color:var(--secondary);margin-bottom:12px;">📝待办清单</h2>
+        <ul style="padding-left:20px;">
+            <li>保存PREMIUM APARTMENTS公寓预订确认单电子版，备份两份</li>
+            <li>保存ELLO cottage木屋预订确认单，电子版备用</li>
+            <li>提前离线保存全部餐厅、景点谷歌地图点位</li>
+            <li>提前查阅格鲁吉亚无人机飞行规则，标记禁飞区域</li>
+            <li>备好保暖外套；卡兹别克山区昼夜温差极大，气候干燥，携带保湿面霜</li>
+        </ul>
+    </section>
+
+    <!--6.实用贴士-->
+    <section id="tips" class="card">
+        <h2 style="color:var(--secondary);margin-bottom:12px;">💡实用贴士｜拍照/证件/货币/出行</h2>
+        <div class="tip-block">
+            <strong>📸拍照专项攻略</strong>
+            <p>设备：大疆Mini4Pro、大疆4、苹果15PM；调色APP：极影、Dazz</p>
+            <ul style="padding-left:20px;margin-top:6px;">
+                <li>🏙️城市街巷/和平桥夜景：Dazz F2，低饱和胶片夜景人像</li>
+                <li>☁️阴天：极影KV2，柔和灰调保留建筑细节</li>
+                <li>☕咖啡馆人像：Dazz Classic，暖胶片氛围感</li>
+                <li>🏔️卡兹别克雪山木屋：极影KV冷调，电影宽幅构图</li>
+            </ul>
+            <p>💞情侣电影感合照：牵手行走抓拍、木屋窗边对视、露台黄昏合影，横向宽画幅；Mini4Pro俯拍木屋雪山远景</p>
+        </div>
+        <div class="tip-block">
+            <strong>🛂入境、货币与网络</strong>
+            <p>中国护照免签，单次停留≤30天；备好酒店订单、保险、返程机票备查；货币拉里GEL，市区换汇，不建议机场大额换钱；落地市区办理电话卡。</p>
+        </div>
+        <div class="tip-block">
+            <strong>⛪礼仪、海关、无人机</strong>
+            <p>教堂需要遮挡肩膝；生鲜肉类禁止入境；城市/教堂区域无人机禁飞，仅木屋开阔山谷可飞行；山区天气多变，昼夜温差大。</p>
+        </div>
+        <div class="tip-block">
+            <strong>🧾行李清单简述</strong>
+            <p>护照、保险、酒店机票预订单；欧标转换插头、无人机配件；厚外套、保湿护肤、肠胃/感冒应急药品。</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>🇬🇪 Georgia Travel Guide｜格鲁吉亚旅行攻略 | 离线单页HTML</p>
+    </footer>
+</div>
+
+<script>
+    // 打开谷歌地图
+    function openMap(query){
+        window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`,"_blank");
+    }
+    // 倒计时 基准：2026-10-01T16:40:00 UTC+4（第比利斯时区）
+    const target = new Date("2026-10-01T16:40:00+04:00");
+    function renderCountdown(){
+        const now = new Date();
+        const diff = target - now;
+        if(diff <=0){
+            document.getElementById("cd").innerText="行程已开始";
+            return;
+        }
+        const sec = Math.floor(diff/1000);
+        const d = Math.floor(sec/(3600*24));
+        const h = Math.floor((sec%(3600*24))/3600);
+        const m = Math.floor((sec%3600)/60);
+        const s = sec%60;
+        document.getElementById("cd").innerText = `${d}天 ${h}时 ${m}分 ${s}秒`;
+    }
+    renderCountdown();
+    setInterval(renderCountdown,1000);
+</script>
+</body>
+</html>
