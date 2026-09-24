@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>出发！格鲁吉亚 🇬🇪</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  :root {
+    --bg-deep: #0f0a1f;
+    --bg-card: rgba(30, 20, 58, 0.58);
+    --bg-card-strong: rgba(22, 14, 44, 0.72);
+    --border: rgba(167, 139, 250, 0.32);
+    --border-strong: rgba(192, 160, 255, 0.48);
+    --purple-1: #7c3aed;
+    --purple-2: #a78bfa;
+    --purple-3: #c4b5fd;
+    --pink-glow: #f472b6;
+    --blue-glow: #60a5fa;
+    --text-white: #ffffff;
+    --text-muted: #e9d5ff;
+  }
+
+  body {
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(124, 58, 237, 0.35), transparent 60%),
+      radial-gradient(900px 500px at 110% 10%, rgba(244, 114, 182, 0.18), transparent 55%),
+      linear-gradient(180deg, #120a24 0%, #0a0618 100%);
+    color: var(--text-white);
+    min-height: 100vh;
+    padding-bottom: 110px;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 18px 14px 24px;
+  }
+
+  /* ====== Hero 标题区 ====== */
+  .hero {
+    border-radius: 30px;
+    padding: 28px 22px 24px;
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.28), rgba(244, 114, 182, 0.12));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(180deg, rgba(10, 6, 24, 0.45), rgba(10, 6, 24, 0.72)),
+      url("https://images.unsplash.com/photo-1610707859129-9089e8a4444a?auto=format&fit=crop&w=1600&q=80");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.55;
+    z-index: 0;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    text-align:center;
+  }
+
+  .hero h1 {
+    font-size: 44px;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 0 10px 30px rgba(124, 58, 237, 0.45);
+  }
+
+  /* ====== 倒计时 ====== */
+  .countdown-card {
+    margin-top: 18px;
+    border-radius: 26px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    background: rgba(20, 12, 42, 0.62);
+    backdrop-filter: blur(18px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .countdown-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(180deg, rgba(10, 6, 24, 0.5), rgba(10, 6, 24, 0.78)),
+      url("https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    z-index: 0;
+  }
+
+  .countdown-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .countdown-title {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .time-block {
+    border-radius: 22px;
+    padding: 16px 6px;
+    text-align: center;
+    border: 1px solid rgba(167, 139, 250, 0.35);
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.22), rgba(244, 114, 182, 0.08));
+    backdrop-filter: blur(14px);
+  }
+
+  .time-num {
+    font-size: 34px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+  }
+
+  .time-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .next-leg {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  /* ====== 通用卡片 ====== */
+  .glass-card {
+    margin-top: 20px;
+    border-radius: 28px;
+    padding: 24px 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    backdrop-filter: blur(18px);
+  }
+
+  .card-title {
+    font-size: 22px;
+    color: #ffffff;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap:8px;
+  }
+
+  /* ====== 路线图【恢复第二版闭环线路】====== */
+  .route-map-wrap {
+    position: relative;
+    border-radius: 24px;
+    padding: 18px;
+    border: 1px solid var(--border-strong);
+    background:
+      radial-gradient(500px 260px at 50% 60%, rgba(244, 114, 182, 0.18), transparent 65%),
+      linear-gradient(180deg, rgba(124, 58, 237, 0.18), rgba(20, 12, 42, 0.45));
+    overflow: hidden;
+  }
+
+  .route-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .route-legend {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .legend-item {
+    display: flex; align-items: center; gap:6px;
+  }
+  .legend-dot {
+    width:10px;height:10px;border-radius:50%;
+  }
+
+  /* ====== 概览文字 ====== */
+  .overview-list p {
+    font-size:15px;color:var(--text-white);margin:10px 0;line-height:1.75;
+  }
+
+  /* ====== 预订信息表格 ====== */
+  table {
+    width:100%;border-collapse:collapse;font-size:14px;color:var(--text-white);
+  }
+  th,td {
+    border:1px solid var(--border);padding:12px 10px;text-align:left;vertical-align:top;
+  }
+  th {
+    color:var(--purple-3);background:rgba(124,58,237,0.12);
+  }
+
+  /* ====== 逐日行程 ====== */
+  .day-section {
+    margin-top:14px;border-radius:24px;border:1px solid var(--border);background:rgba(22,14,44,0.55);overflow:hidden;
+  }
+  .day-title {
+    width:100%;border:none;background:linear-gradient(90deg,rgba(124,58,237,0.22),rgba(244,114,182,0.06));
+    padding:18px 16px;color:#ffffff;font-size:18px;font-weight:700;text-align:left;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .day-title .arrow {
+    transition: transform 0.3s ease;font-size:14px;color:var(--purple-3);
+  }
+  .day-title.active .arrow {
+    transform: rotate(180deg);
+  }
+  .day-body {
+    display:none;padding:16px;
+  }
+  .day-title.active + .day-body {
+    display:block;
+  }
+  .day-badge {
+    display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(135deg,#7c3aed,#f472b6);
+    color:#ffffff;font-size:13px;font-weight:700;margin-bottom:10px;
+  }
+  .day-subtitle {
+    font-size:14px;color:var(--text-muted);margin-bottom:14px;line-height:1.6;
+  }
+  .timeline {
+    position:relative;padding-left:34px;
+  }
+  .timeline::before {
+    content:"";position:absolute;left:11px;top:4px;bottom:4px;width:2px;border-left:2px dashed rgba(167,139,250,0.35);
+  }
+  .timeline-item {
+    position:relative;padding-bottom:18px;
+  }
+  .timeline-dot {
+    position:absolute;left:-33px;top:4px;width:22px;height:22px;border-radius:50%;background:rgba(124,58,237,0.35);
+    border:1px solid var(--purple-2);display:flex;align-items:center;justify-content:center;font-size:11px;color:#ffffff;
+  }
+  .timeline-item h4 {
+    font-size:16px;color:#ffffff;margin-bottom:4px;
+  }
+  .map-link {
+    color:#d8b4fe;text-decoration:underline;font-size:14px;cursor:pointer;
+  }
+  .time-text {
+    font-size:13px;color:var(--text-muted);margin-top:4px;
+  }
+  .inner-card {
+    margin-top:12px;border-radius:18px;padding:14px;border:1px solid var(--border);background:rgba(30,20,58,0.5);
+  }
+  .map-btn {
+    display:block;text-align:center;margin-top:12px;padding:12px;border-radius:16px;
+    background:linear-gradient(90deg,rgba(124,58,237,0.35),rgba(244,114,182,0.18));
+    color:#ffffff;font-size:14px;font-weight:600;cursor:pointer;border:1px solid var(--border-strong);
+  }
+  .note-text {
+    margin-top:12px;padding-left:12px;border-left:3px solid var(--purple-2);font-size:14px;color:var(--text-muted);line-height:1.7;
+  }
+
+  /* ====== 底部导航 ====== */
+  .bottom-nav {
+    position:fixed;left:0;right:0;bottom:0;background:rgba(10,6,24,0.82);backdrop-filter:blur(18px);
+    border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:14px 0 20px;z-index:50;
+  }
+  .nav-item {
+    font-size:15px;color:var(--text-muted);cursor:pointer;
+  }
+  .nav-item.active {
+    color:#ffffff;
+  }
+
+  /* 昼夜切换 */
+  :root{
+    --bg:#0a0618;
+  }
+  [data-theme="day"]{
+    --bg-deep:#f0eaff;
+    --bg-card:rgba(255,255,255,0.6);
+    --bg-card-strong:rgba(255,255,255,0.75);
+    --border:rgba(124,58,237,0.25);
+    --text-white:#1e1b4b;
+    --text-muted:#4c1d95;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- Hero标题 -->
+  <div class="hero">
+    <div class="hero-inner">
+      <h1>出发！格鲁吉亚 🇬🇪</h1>
+    </div>
+  </div>
+
+  <!-- 倒计时卡片 -->
+  <div class="countdown-card">
+    <div class="countdown-inner">
+      <div class="countdown-title">距离出发</div>
+      <div class="countdown-grid">
+        <div class="time-block"><div class="time-num" id="dd">00</div><div class="time-label">天</div></div>
+        <div class="time-block"><div class="time-num" id="hh">00</div><div class="time-label">时</div></div>
+        <div class="time-block"><div class="time-num" id="mm">00</div><div class="time-label">分</div></div>
+        <div class="time-block"><div class="time-num" id="ss">00</div><div class="time-label">秒</div></div>
+      </div>
+      <div class="next-leg">下一段行程：布加勒斯特 → 第比利斯</div>
+    </div>
+  </div>
+
+  <!-- 行程总览地图｜SVG【恢复格鲁吉亚境内闭环线路，双出发点】 -->
+  <div class="glass-card">
+    <h2 class="card-title">🗺️ 行程总览地图</h2>
+    <div class="route-map-wrap">
+<svg class="route-svg" viewBox="0 0 800 420">
+  <!-- 背景底色 -->
+  <rect width="800" height="420" fill="none"/>
+  <!-- 2条境外出发主线 -->
+  <path d="M60,70 L320,180" stroke="#a78bfa" stroke-width="3" fill="none" stroke-dasharray="8 4"/>
+  <path d="M100,340 L320,180" stroke="#f472b6" stroke-width="3" fill="none" stroke-dasharray="8 4"/>
+  <!-- 格鲁吉亚境内【第二版闭环环线】第比利斯 ↔ 卡兹别克闭环 -->
+  <path d="M320,180 L460,110 L540,190 L420,280 L320,180" stroke="#7c3aed" stroke-width="3" fill="none"/>
+  <!-- 点位标记 -->
+  <circle cx="60" cy="70" r="7" fill="#a78bfa"/>
+  <text x="75" y="75" fill="#fff" font-size="13">布加勒斯特</text>
+  <circle cx="100" cy="340" r="7" fill="#f472b6"/>
+  <text x="115" y="345" fill="#fff" font-size="13">女友落地</text>
+  <circle cx="320" cy="180" r="9" fill="#7c3aed"/>
+  <text x="335" y="185" fill="#fff" font-size="13">第比利斯</text>
+  <circle cx="460" cy="110" r="7" fill="#c4b5fd"/>
+  <text x="475" y="115" fill="#fff" font-size="13">卡兹别克</text>
+  <circle cx="540" cy="190" r="7" fill="#c4b5fd"/>
+  <text x="555" y="195" fill="#fff" font-size="13">圣三一教堂</text>
+  <circle cx="420" cy="280" r="7" fill="#c4b5fd"/>
+  <text x="435" y="285" fill="#fff" font-size="13">和平桥</text>
+</svg>
+    </div>
+    <div class="route-legend">
+      <div class="legend-item"><span class="legend-dot" style="background:#a78bfa"></span>你的航线</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#f472b6"></span>女友航线</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#7c3aed"></span>格鲁吉亚境内闭环</div>
+    </div>
+  </div>
+
+  <!-- 已确认预订信息 -->
+  <div class="glass-card">
+    <h2 class="card-title">📋 已确认预订（机票/租车/酒店）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>项目</th>
+          <th>时间&信息</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>第比利斯酒店</td>
+          <td>地址：10 Tarieli St，全程入住，接机已预定</td>
+        </tr>
+        <tr>
+          <td>卡兹别克包车</td>
+          <td>上午出发，下午圣三一教堂打卡，当日行程</td>
+        </tr>
+        <tr>
+          <td>航班返程</td>
+          <td>10月7日夜间22点第比利斯起飞</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 逐日行程 -->
+  <div class="glass-card">
+    <h2 class="card-title">📅 逐日行程</h2>
+
+    <div class="day-section">
+      <button class="day-title">Day1｜10月1日 落地第比利斯 <span class="arrow">▼</span></button>
+      <div class="day-body">
+        <span class="day-badge">抵达日</span>
+        <p class="day-subtitle">16:00落地第比利斯机场；酒店安排接机；21:00接机接女友小吴落地；步行逛附近街区</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">✈</div>
+            <h4>落地第比利斯机场</h4>
+            <p>16:00 落地，办理入境、换汇、买电话卡，采购食物，酒店附近超市步行可达</p>
+            <p class="time-text">导航：Tbilisi International Airport</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">🍽</div>
+            <h4>晚餐，附近超市补给</h4>
+            <p>步行往返，超市采购零食饮用水，准备后面行程物资</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">🚗</div>
+            <h4>接机等候：女友落地</h4>
+            <p>21:00，老板车辆接机，接到小吴，返回酒店，情侣拍照</p>
+          </div>
+        </div>
+        <div class="note-text">备注：落地市区办理电话卡；情侣合照推荐电影氛围感慢快门拍摄</div>
+      </div>
+    </div>
+
+    <div class="day-section">
+      <button class="day-title">Day2｜10月2日 第比利斯老城+木偶楼+夜间小火车 <span class="arrow">▼</span></button>
+      <div class="day-body">
+        <span class="day-badge">老城漫游</span>
+        <p class="day-subtitle">睡醒打卡网红画画咖啡店，木偶楼报时；下午少量景点；晚饭后搭乘夜间小火车</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">☕</div>
+            <h4>网红画画咖啡店打卡</h4>
+            <p>咖啡店，情侣人像，滤镜：Dazz</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">⏰</div>
+            <h4>木偶楼报时打卡</h4>
+            <p>老城木偶钟楼，整点木偶表演</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">🗿</div>
+            <h4>格鲁吉亚之母 / 小缆车（半日）</h4>
+            <p>老城观景，俯瞰城市全景</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">🚂</div>
+            <h4>夜间小火车【固定时间】</h4>
+            <p>第比利斯夜间小火车，详细乘坐攻略嵌入专项攻略板块</p>
+          </div>
+        </div>
+        <div class="note-text">餐厅双语名称，导航关键词附带解释；不安排金酒酒吧</div>
+      </div>
+    </div>
+
+    <div class="day-section">
+      <button class="day-title">Day3｜10月3日 卡兹别克包车一日 <span class="arrow">▼</span></button>
+      <div class="day-body">
+        <span class="day-badge">雪山行程</span>
+        <p class="day-subtitle">上午9点后出发，包车前往卡兹别克，下午圣三一教堂打卡，小木屋拍照</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">🚙</div>
+            <h4>包车出发前往卡兹别克</h4>
+            <p>上午出发，沿途山路观景，中途停靠拍照</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">⛪</div>
+            <h4>圣三一教堂打卡</h4>
+            <p>雪山背景，无人机拍摄，极影滤镜，电影感情侣合照</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">🏠</div>
+            <h4>卡兹别克小木屋打卡</h4>
+            <p>木屋氛围感人像</p>
+          </div>
+        </div>
+        <div class="note-text">专项攻略内附带完整卡兹别克包车谈价、租车贴士</div>
+      </div>
+    </div>
+
+    <div class="day-section">
+      <button class="day-title">Day4｜10月4日 卡兹别克停留，轻松休闲 <span class="arrow">▼</span></button>
+      <div class="day-body">
+        <span class="day-badge">雪山休闲</span>
+        <p class="day-subtitle">卡兹别克周边轻徒步，雪山拍照，休息调整</p>
+      </div>
+    </div>
+
+    <div class="day-section">
+      <button class="day-title">Day5｜10月5日 返回第比利斯 <span class="arrow">▼</span></button>
+      <div class="day-body">
+        <span class="day-badge">返程回市区</span>
+        <p class="day-subtitle">卡兹别克返程回到第比利斯市区，老城闲逛休整</p>
+      </div>
+    </div>
+
+    <div class="day-section">
+      <button class="day-title">Day6｜10月6日 和平桥+剩余城市景点 <span class="arrow">▼</span></button>
+      <div class="day-body">
+        <span class="day-badge">城市打卡</span>
+        <p class="day-subtitle">和平桥，剩余城市点位，城市航拍，Dazz/极影滤镜拍摄</p>
+      </div>
+    </div>
+
+    <div class="day-section">
+      <button class="day-title">Day7｜10月7日 伴手礼采购，晚间返程飞机 <span class="arrow">▼</span></button>
+      <div class="day-body">
+        <span class="day-badge">返程日</span>
+        <p class="day-subtitle">白天采购伴手礼；夜间22点航班飞回</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 专项攻略板块 -->
+  <div class="glass-card">
+    <h2 class="card-title">📖 专项攻略</h2>
+    <div class="inner-card">
+      <h4>🚂 第比利斯夜间小火车 乘坐详细攻略</h4>
+      <p>文字内容：乘车地点、买票方式、站台、最佳拍照车厢，运营时间，避坑点</p>
+    </div>
+    <div class="inner-card">
+      <h4>🚗 卡兹别克包车攻略</h4>
+      <p>谈价技巧、车型选择、停车约定、报价参考、司机沟通短句</p>
+    </div>
+    <div class="inner-card">
+      <h4>📸 拍照滤镜&情侣电影感合照指引</h4>
+      <p>APP：极影、Dazz<br>
+      ✅城市街景：Dazz Classic，低对比暖调<br>
+      ✅阴天：极影CN50，柔和灰调<br>
+      ✅咖啡馆人像：Dazz F2，胶片颗粒<br>
+      ✅雪山：极影KV，冷调高通透<br>
+      ✅无人机航拍：极影风景滤镜，压低高光<br>
+      情侣合照：低机位、侧面轮廓、走动抓拍，电影宽幅构图
+      </p>
+    </div>
+  </div>
+
+  <!-- 待办清单（静态，不可勾选） -->
+  <div class="glass-card">
+    <h2 class="card-title">✅ 待办清单</h2>
+    <div class="overview-list">
+      <p>1. 确认接机司机联系方式</p>
+      <p>2. 准备少量欧元现金用于换汇</p>
+      <p>3. 无人机电池、存储卡检查</p>
+      <p>4. 提前下载谷歌地图离线格鲁吉亚数据包</p>
+      <p>5. 护肤保湿用品打包（10月干燥）</p>
+    </div>
+  </div>
+
+  <!-- 实用贴士 -->
+  <div class="glass-card">
+    <h2 class="card-title">💡 实用贴士</h2>
+    <div class="overview-list">
+      <p>• 第比利斯10月昼夜温差大，卡兹别克山区更冷，备薄羽绒</p>
+      <p>• 当地支付：现金+信用卡，小店优先现金</p>
+      <p>• 无人机：格鲁吉亚航拍规则，避开机场区域</p>
+      <p>• 餐厅导航关键词均附带解释，点击直接唤起谷歌地图</p>
+    </div>
+  </div>
+</div>
+
+<!-- 底部导航 -->
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="scrollToSection('')">首页</div>
+  <div class="nav-item" onclick="scrollToSection('')">行程</div>
+  <div class="nav-item" onclick="scrollToSection('')">攻略</div>
+  <div class="nav-item" onclick="scrollToSection('')">待办</div>
+</div>
+
+<script>
+// 倒计时
+function updateCountdown(){
+  const target = new Date("2026-10-01T16:00:00+04:00");
+  const now = new Date();
+  let diff = target - now;
+  if(diff < 0){
+    document.getElementById('dd').innerText="00";
+    document.getElementById('hh').innerText="00";
+    document.getElementById('mm').innerText="00";
+    document.getElementById('ss').innerText="00";
+    return;
+  }
+  const days = Math.floor(diff / (1000*60*60*24));
+  diff -= days * (1000*60*60*24);
+  const hours = Math.floor(diff / (1000*60*60));
+  diff -= hours * (1000*60*60);
+  const mins = Math.floor(diff / (1000*60));
+  diff -= mins * (1000*60);
+  const secs = Math.floor(diff / 1000);
+  document.getElementById('dd').innerText=String(days).padStart(2,'0');
+  document.getElementById('hh').innerText=String(hours).padStart(2,'0');
+  document.getElementById('mm').innerText=String(mins).padStart(2,'0');
+  document.getElementById('ss').innerText=String(secs).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+// 折叠展开
+document.querySelectorAll('.day-title').forEach(btn=>{
+  btn.onclick = ()=>{
+    btn.classList.toggle('active');
+  }
+})
+
+// 昼夜自动切换
+function setDayNight(){
+  const hour = new Date().getHours();
+  const body = document.body;
+  if(hour >=7 && hour <=18){
+    body.setAttribute('data-theme','day');
+  }else{
+    body.removeAttribute('data-theme');
+  }
+}
+setDayNight();
+setInterval(setDayNight,30000);
+
+// 地图跳转
+function openMap(place){
+  window.open(`https://www.google.com/maps/search/${encodeURIComponent(place)}`);
+}
+</script>
+</body>
+</html>
