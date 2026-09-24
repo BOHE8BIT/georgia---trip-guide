@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>出发！格鲁吉亚 🇬🇪</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  :root {
+    --bg-deep: #0f0a1f;
+    --bg-card: rgba(30, 20, 58, 0.58);
+    --bg-card-strong: rgba(22, 14, 44, 0.72);
+    --border: rgba(167, 139, 250, 0.32);
+    --border-strong: rgba(192, 160, 255, 0.48);
+    --purple-1: #7c3aed;
+    --purple-2: #a78bfa;
+    --purple-3: #c4b5fd;
+    --pink-glow: #f472b6;
+    --blue-glow: #60a5fa;
+    --text-white: #ffffff;
+    --text-muted: #e9d5ff;
+  }
+
+  body {
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(124, 58, 237, 0.35), transparent 60%),
+      radial-gradient(900px 500px at 110% 10%, rgba(244, 114, 182, 0.18), transparent 55%),
+      linear-gradient(180deg, #120a24 0%, #0a0618 100%);
+    color: var(--text-white);
+    min-height: 100vh;
+    padding-bottom: 110px;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 18px 14px 24px;
+  }
+
+  /* ====== Hero 标题区 ====== */
+  .hero {
+    border-radius: 30px;
+    padding: 28px 22px 24px;
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.28), rgba(244, 114, 182, 0.12));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(180deg, rgba(10, 6, 24, 0.45), rgba(10, 6, 24, 0.72)),
+      url("https://images.unsplash.com/photo-1610707859129-9089e8a4444a?auto=format&fit=crop&w=1600&q=80");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.55;
+    z-index: 0;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    text-align:center;
+  }
+
+  .hero h1 {
+    font-size: 44px;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 0 10px 30px rgba(124, 58, 237, 0.45);
+  }
+
+  /* ====== 倒计时 ====== */
+  .countdown-card {
+    margin-top: 18px;
+    border-radius: 26px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    background: rgba(20, 12, 42, 0.62);
+    backdrop-filter: blur(18px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .countdown-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(180deg, rgba(10, 6, 24, 0.5), rgba(10, 6, 24, 0.78)),
+      url("https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    z-index: 0;
+  }
+
+  .countdown-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .countdown-title {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .time-block {
+    border-radius: 22px;
+    padding: 16px 6px;
+    text-align: center;
+    border: 1px solid rgba(167, 139, 250, 0.35);
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.22), rgba(244, 114, 182, 0.08));
+    backdrop-filter: blur(14px);
+  }
+
+  .time-num {
+    font-size: 34px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+  }
+
+  .time-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .next-leg {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  /* ====== 通用卡片 ====== */
+  .glass-card {
+    margin-top: 20px;
+    border-radius: 28px;
+    padding: 24px 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    backdrop-filter: blur(18px);
+  }
+
+  .card-title {
+    font-size: 22px;
+    color: #ffffff;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap:8px;
+  }
+
+  /* ====== 路线SVG地图 ====== */
+  .route-map-wrap {
+    position: relative;
+    border-radius: 24px;
+    padding: 18px;
+    border: 1px solid var(--border-strong);
+    background:
+      radial-gradient(500px 260px at 50% 60%, rgba(244, 114, 182, 0.18), transparent 65%),
+      linear-gradient(180deg, rgba(124, 58, 237, 0.18), rgba(20, 12, 42, 0.45));
+    overflow: hidden;
+  }
+  .route-svg {width:100%;height:auto;display:block;}
+  .route-legend {margin-top:14px;display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--text-muted);}
+
+  /* ====== 预订信息表格 ====== */
+  table {width:100%;border-collapse: collapse;}
+  td {padding:12px 8px;border-bottom:1px solid rgba(167,139,250,0.25);vertical-align:top;}
+  tr:last-child td {border-bottom:none;}
+
+  /* ====== 逐日行程 ====== */
+  .day-item {margin-bottom:22px;border-left:3px solid var(--purple-2);padding-left:16px;}
+  .day-title {font-size:18px;font-weight:bold;margin-bottom:10px;color:var(--purple-3);}
+  .event {margin:8px 0;}
+  .location-link {color:#a78bfa;cursor:pointer;text-decoration:underline;}
+  .warn {color:#fdba74;}
+
+  /* ====== 专项攻略板块 ====== */
+  .tips-list li {margin:10px 0;line-height:1.6;}
+  .photo-guide li {margin:8px 0;line-height:1.6;}
+
+  /* 深色/浅色自动切换 */
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg-card: rgba(30, 20, 58, 0.58);
+      --text-white:#fff;
+    }
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg-deep:#f0eaff;
+      --bg-card:rgba(255,255,255,0.65);
+      --text-white:#221244;
+      --text-muted:#4b3580;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- Hero标题 -->
+  <div class="hero">
+    <div class="hero-inner">
+      <h1>出发！格鲁吉亚 🇬🇪</h1>
+      <p>罗马尼亚 → 第比利斯 · 卡兹别克 | 情侣旅行</p>
+    </div>
+  </div>
+
+  <!-- 倒计时卡片 -->
+  <div class="countdown-card">
+    <div class="countdown-inner">
+      <div class="countdown-title">⏱️ 距离出发倒计时</div>
+      <div class="countdown-grid">
+        <div class="time-block"><div class="time-num" id="d">00</div><div class="time-label">天</div></div>
+        <div class="time-block"><div class="time-num" id="h">00</div><div class="time-label">时</div></div>
+        <div class="time-block"><div class="time-num" id="m">00</div><div class="time-label">分</div></div>
+        <div class="time-block"><div class="time-num" id="s">00</div><div class="time-label">秒</div></div>
+      </div>
+      <div class="next-leg">📍 下一站：第比利斯机场落地</div>
+    </div>
+  </div>
+
+  <!-- 行程总览地图 -->
+  <div class="glass-card">
+    <h2 class="card-title">🗺️ 行程路线总览</h2>
+    <div class="route-map-wrap">
+      <svg class="route-svg" viewBox="0 0 500 240">
+        <!--路线：第比利斯 ↔ 卡兹别克-->
+        <path d="M100,120 L380,60" stroke="#a78bfa" stroke-width="3" fill="none" stroke-dasharray="6 4"/>
+        <path d="M380,60 L100,120" stroke="#f472b6" stroke-width="3" fill="none" stroke-dasharray="6 4"/>
+        <!--点位 第比利斯老城公寓-->
+        <circle cx="100" cy="120" r="6" fill="#a78bfa"/>
+        <text x="70" y="110" fill="#fff" font-size="13">第比利斯露台公寓</text>
+        <!--点位 ELLO小木屋 卡兹别克-->
+        <circle cx="380" cy="60" r="7" fill="#f472b6"/>
+        <text x="400" y="65" fill="#fff" font-size="13">ELLO小木屋</text>
+        <!--圣三一教堂-->
+        <circle cx="400" cy="45" r="5" fill="#60a5fa"/>
+        <text x="415" y="42" fill="#fff" font-size="11">圣三一教堂</text>
+      </svg>
+      <div class="route-legend">
+        <span>🟣 第比利斯老城露台公寓</span>
+        <span>🩷 卡兹别克ELLO木屋</span>
+        <span>🔵 圣三一教堂</span>
+      </div>
+    </div>
+  </div>
+
+  <!--已确认预订信息-->
+  <div class="glass-card">
+    <h2 class="card-title">📋 已确认预订信息</h2>
+    <table>
+      <tr>
+        <td>✈️ 去程航班</td>
+        <td>10月1日 16:00 落地第比利斯机场，酒店接机</td>
+      </tr>
+      <tr>
+        <td>🏨 第比利斯老城露台公寓（第一段）</td>
+        <td>10.1–10.3｜PREMIUM APARTMENTS WITH TERRACE IN OLD TBILISI<br>价格€211.10，已确认；老城带露台公寓，可步行逛老城，自带停车<br>导航关键词：PREMIUM APARTMENTS WITH TERRACE IN OLD TBILISI</td>
+      </tr>
+      <tr>
+        <td>🏡 卡兹别克木屋 ELLO cottage Kazbegi</td>
+        <td><b>10.3–10.5 入住</b><br>整套独立木屋｜43㎡，1卧2床，雪山窗景，免费停车，可充电<br>导航关键词：ELLO cottage Kazbegi（直接复制谷歌地图，卡兹别克网红雪山木屋）</td>
+      </tr>
+      <tr>
+        <td>🏨 第比利斯老城露台公寓（第二段）</td>
+        <td>10.5–10.7｜PREMIUM APARTMENTS WITH TERRACE IN OLD TBILISI<br>价格€211.10，已确认；回到同一套老城露台公寓，继续步行游览<br>导航关键词：PREMIUM APARTMENTS WITH TERRACE IN OLD TBILISI</td>
+      </tr>
+      <tr>
+        <td>🚗 卡兹别克包车</td>
+        <td>10月3日上午出发卡兹别克；10月5日上午退房，包车返回第比利斯</td>
+      </tr>
+      <tr>
+        <td>✈️ 返程航班</td>
+        <td>10月7日 22:00 第比利斯机场返程，小吴接机</td>
+      </tr>
+    </table>
+  </div>
+
+  <!--逐日行程-->
+  <div class="glass-card">
+    <h2 class="card-title">📅 逐日行程</h2>
+    <!--Day1 10.1-->
+    <div class="day-item">
+      <div class="day-title">Day1｜10月1日 第比利斯落地，入住老城露台公寓</div>
+      <div class="event">下午：16:00落地第比利斯，公寓接机</div>
+      <div class="event">傍晚：市区换汇、办理电话卡、公寓附近超市采购食物，全程步行</div>
+      <div class="event">晚餐：<b>Shavi Lomi｜黑面包餐厅 Shavi Lomi</b><br>导航关键词：Shavi Lomi（第比利斯老城热门格鲁吉亚菜，离公寓步行可达）</div>
+      <div class="event">夜间：21:00接机接到女友小吴，露台拍落地纪念合照</div>
+    </div>
+
+    <!--Day2 10.2-->
+    <div class="day-item">
+      <div class="day-title">Day2｜10月2日 第比利斯老城漫游（住在露台公寓）</div>
+      <div class="event">上午：网红画画咖啡店打卡 <b>Art Cafe Linville｜艺术咖啡馆 Art Cafe Linville</b><br>导航关键词：Art Cafe Linville，老城网红手绘咖啡店，适合情侣人像</div>
+      <div class="event">中午：木偶楼打卡，等候木偶楼整点报时</div>
+      <div class="event">下午：和平桥 + 格鲁吉亚之母雕像，轻松游览</div>
+      <div class="event">晚餐：<b>Restaurant 27｜27号餐厅 Restaurant 27</b><br>导航关键词：Restaurant 27，老城地道格鲁吉亚风味</div>
+      <div class="event">夜晚：搭乘第比利斯夜间小火车（附详细乘坐攻略），夜景拍摄</div>
+    </div>
+
+    <!--Day3 10.3 前往卡兹别克，入住ELLO木屋-->
+    <div class="day-item">
+      <div class="day-title">Day3｜10月3日 离开第比利斯公寓，前往卡兹别克，入住ELLO cottage小木屋</div>
+      <div class="event">上午：9点后包车从第比利斯露台公寓出发前往卡兹别克</div>
+      <div class="event">下午：抵达卡兹别克，办理入住【ELLO cottage Kazbegi】，木屋休整、窗边雪山情侣拍照，无人机航拍木屋全景</div>
+      <div class="event">傍晚：圣三一教堂打卡，俯瞰卡兹别克山谷雪山</div>
+      <div class="event">晚餐：<b>Rooms Hotel Restaurant｜Rooms酒店餐厅 Rooms Hotel Kazbegi</b><br>导航关键词：Rooms Hotel Kazbegi，卡兹别克热门观景餐厅</div>
+    </div>
+
+    <!--Day4 10.4 卡兹别克全天，木屋休闲-->
+    <div class="day-item">
+      <div class="day-title">Day4｜10月4日 卡兹别克 木屋慢休整日</div>
+      <div class="event">上午：木屋窗边清晨雪山人像，电影感情侣合照，Dazz/极影滤镜拍摄</div>
+      <div class="event">下午：卡兹别克山谷轻徒步，无人机雪山航拍取景</div>
+      <div class="event">晚餐：<b>Cafe 5047｜5047咖啡馆 Cafe 5047</b><br>导航关键词：Cafe 5047，卡兹别克本地简餐，雪山视野</div>
+    </div>
+
+    <!--Day5 10.5 退房返回第比利斯，回到露台公寓-->
+    <div class="day-item">
+      <div class="day-title">Day5｜10月5日 卡兹别克木屋退房，返回第比利斯老城露台公寓</div>
+      <div class="event">上午：ELLO木屋退房，包车返回第比利斯市区，回到PREMIUM APARTMENTS老城露台公寓</div>
+      <div class="event">下午：第比利斯休整，公寓露台休息，采购零食</div>
+      <div class="event">晚餐：<b>Samikitno｜萨米基诺 Samikitno</b><br>导航关键词：Samikitno，本地老牌格鲁吉亚连锁餐厅</div>
+    </div>
+
+    <!--Day6 10.6-->
+    <div class="day-item">
+      <div class="day-title">Day6｜10月6日 第比利斯剩余景点游览，露台公寓住宿</div>
+      <div class="event">上午：第比利斯小缆车打卡，城市全景观景</div>
+      <div class="event">下午：老城闲逛，伴手礼采购</div>
+      <div class="event">晚餐：<b>Lobio House｜豆泥小屋 Lobio House</b><br>导航关键词：Lobio House，主打格鲁吉亚豆泥特色菜</div>
+    </div>
+
+    <!--Day7 10.7 返程日，伴手礼收尾-->
+    <div class="day-item">
+      <div class="day-title">Day7｜10月7日 伴手礼采购，晚间返程，住在露台公寓</div>
+      <div class="event">白天：集中采购伴手礼（红酒、 churchkhela 香肠糖、蜂蜜），公寓露台休整放行李</div>
+      <div class="event">傍晚：出发前往机场，22:00 航班返程</div>
+    </div>
+  </div>
+
+  <!-- 专项攻略板块 -->
+  <div class="glass-card">
+    <h2 class="card-title">📖 专项攻略</h2>
+    <h3>🚞 第比利斯夜间小火车详细乘坐指南</h3>
+    <ul class="tips-list">
+      <li>乘坐地点：Tbilisi Old Town Railway Station，导航关键词：Tbilisi Old Town Railway Station</li>
+      <li>购票：站台自助机购买，现金/刷卡均可，夜间班次看实时时刻表</li>
+      <li>拍照贴士：靠窗位置，拍摄城市灯火，电影氛围感，Dazz胶片滤镜</li>
+    </ul>
+    <h3>🚗 卡兹别克包车攻略</h3>
+    <ul class="tips-list">
+      <li>出发：第比利斯老城露台公寓 → 卡兹别克，单程约2.5小时，谈价时确认包含等候、停车费</li>
+      <li>推荐谈价参考：往返包车，中途可停靠观景点，司机可等候教堂打卡</li>
+      <li>注意：山路弯道多，10月山区气温低，备好外套</li>
+    </ul>
+    <h3>📸 拍照滤镜&情侣合照指引（极影 / Dazz）</h3>
+    <ul class="photo-guide">
+      <li>🏙️ 第比利斯城市：Dazz F2，低饱和胶片，适合老城街巷、和平桥夜景；公寓露台适合傍晚情侣合照</li>
+      <li>☁️ 阴天场景：极影KV2，压低高光，柔和灰调，保留建筑细节</li>
+      <li>☕网红咖啡馆：Dazz Classic，暖调，突出人像氛围感</li>
+      <li>🏔️雪山&木屋（ELLO cottage）：极影KV冷调，突出雪山蓝白色，电影宽幅构图；无人机Mini4Pro俯拍木屋+雪山全景，情侣站木屋草坪牵手远景</li>
+      <li>👫情侣合照推荐：侧身牵手、互相回头抓拍、窗边背靠雪山对视，公寓露台黄昏人像，优先横向宽画幅，电影质感</li>
+    </ul>
+  </div>
+
+  <!--待办清单-->
+  <div class="glass-card">
+    <h2 class="card-title">📝 待办清单</h2>
+    <ul class="tips-list">
+      <li>保存两份PREMIUM APARTMENTS WITH TERRACE公寓预订确认单电子版备用</li>
+      <li>确认ELLO cottage 10.3–10.5木屋预订确认单，打印电子版备用</li>
+      <li>提前保存全部餐厅、景点谷歌地图点位离线</li>
+      <li>准备无人机在格鲁吉亚飞行规定，提前查询禁飞区</li>
+      <li>准备外套，卡兹别克山区10月昼夜温差大，干燥，备好保湿面霜</li>
+    </ul>
+  </div>
+
+  <!--实用贴士-->
+  <div class="glass-card">
+    <h2 class="card-title">💡 实用贴士</h2>
+    <ul class="tips-list">
+      <li>货币：格鲁吉亚拉里GEL，市区兑换点换汇，不要机场大额换钱</li>
+      <li>电话卡：落地市区办理，方便上网导航</li>
+      <li>气候：第比利斯偏干；卡兹别克山区更冷干燥，早晚温差巨大，注意护肤保湿</li>
+      <li>导航：所有标注关键词直接复制粘贴Google Maps打开定位</li>
+      <li>公寓：两段预订为同一套老城露台公寓，卡兹别克行程中途不需要换酒店行李，方便存放行李</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// 倒计时
+const targetDate = new Date('2026-10-01T16:00:00').getTime();
+function updateCount(){
+  const now = Date.now();
+  const diff = targetDate - now;
+  if(diff <= 0){
+    document.getElementById('d').innerText="00";
+    document.getElementById('h').innerText="00";
+    document.getElementById('m').innerText="00";
+    document.getElementById('s').innerText="00";
+    return;
+  }
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
+  const mins = Math.floor((diff % (1000*60*60))/(1000*60));
+  const secs = Math.floor((diff % (1000*60))/1000);
+  document.getElementById('d').innerText=String(days).padStart(2,'0');
+  document.getElementById('h').innerText=String(hours).padStart(2,'0');
+  document.getElementById('m').innerText=String(mins).padStart(2,'0');
+  document.getElementById('s').innerText=String(secs).padStart(2,'0');
+}
+updateCount();
+setInterval(updateCount,1000);
+
+// 点击地点唤起谷歌地图
+function openMap(placeName){
+  window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(placeName)}`);
+}
+</script>
+</body>
+</html>
